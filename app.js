@@ -26,6 +26,7 @@ const elements = {
   headerLogo: document.getElementById('btn-header-logo'),
   navHome: document.getElementById('btn-nav-home'),
   navAdmin: document.getElementById('btn-nav-admin'),
+  menuToggle: document.getElementById('btn-menu-toggle'),
   
   homeView: document.getElementById('home-view'),
   courseView: document.getElementById('course-view'),
@@ -1932,6 +1933,40 @@ function bindEvents() {
   elements.navAdmin.addEventListener('click', e => {
     e.preventDefault();
     navigateTo('#/admin-tools');
+  });
+
+  if (elements.menuToggle) {
+    elements.menuToggle.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const navLinks = elements.navHome.parentElement;
+      if (navLinks) {
+        navLinks.classList.toggle('active');
+      }
+    });
+  }
+
+  // Close menu when clicking nav links
+  const navItems = [elements.navHome, elements.navAdmin];
+  navItems.forEach(item => {
+    if (item) {
+      item.addEventListener('click', () => {
+        const navLinks = elements.navHome.parentElement;
+        if (navLinks) {
+          navLinks.classList.remove('active');
+        }
+      });
+    }
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', e => {
+    const navLinks = elements.navHome.parentElement;
+    if (navLinks && navLinks.classList.contains('active')) {
+      if (elements.menuToggle && !elements.menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('active');
+      }
+    }
   });
   
   // Search & Filter event bindings
