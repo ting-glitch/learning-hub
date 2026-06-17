@@ -3,14 +3,22 @@ logs
 *.log
 npm-debug.log*
 
-# Runtime data
-courses/
-node_modules/
-
 # Dependency directories
 jspm_packages/
 web_modules/
+node_modules/
 
 # OS metadata
 .DS_Store
 Thumbs.db
+
+# --- SECURITY PROTECTION FOR COURSES ---
+# 1. By default, ignore everything under courses/ (including all hashed secret folders)
+courses/*
+
+# 2. BUT allow committing public course metadata directories starting with 'course-'
+!courses/course-*/
+
+# 3. AND inside those public directories, strictly ignore any 'downloads' folder 
+# (just in case they contain private contents)
+courses/course-*/downloads/
