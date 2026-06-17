@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>學習中心 | Course Learning Hub</title>
+  <meta name="description" content="專屬學員的簡報瀏覽與教材下載平台，安全控管，隨時複習。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="app-header">
+    <div class="container header-container">
+      <a href="#" class="logo-area" id="btn-header-logo">
+        <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/><path d="M13 14h3"/></svg>
+        <span class="logo-text">Learning Hub <span class="logo-subtext">學習中心</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#" class="nav-link active" id="btn-nav-home">全部課程</a>
+        <a href="#admin-tools" class="nav-link" id="btn-nav-admin">管理工具</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Areas -->
+  <main class="app-main container">
+
+    <!-- 1. HOME VIEW (Course Catalog) -->
+    <section id="home-view" class="view-section active">
+      
+      <!-- Welcome Banner -->
+      <div class="hero-banner">
+        <div class="hero-content-layout">
+          <div class="hero-text-area">
+            <span class="hero-badge">學員專用平台</span>
+            <h2 class="hero-title">歡迎來到課程學習中心</h2>
+            <p class="hero-subtitle">為課程學員專屬打造，在此瀏覽課前準備簡報與教材，部分課程需要密碼解鎖。</p>
+          </div>
+          <div class="hero-illustration">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M9 6h6"></path><path d="M9 10h6"></path></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="catalog-header-bar">
+        <div class="catalog-title-area">
+          <h1 class="section-title">課程總覽</h1>
+          <p class="section-desc">請選擇您正在參與的課程，部分課程內容受密碼保護。</p>
+        </div>
+        <div class="catalog-controls">
+          <div class="search-box-container">
+            <svg class="search-icon icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="搜尋課程名稱、講師..." class="form-control" autocomplete="off">
+          </div>
+          <div class="filter-box-container">
+            <select id="date-filter" class="form-control select-control">
+              <option value="all">全部時間</option>
+              <option value="upcoming">未來課程</option>
+              <option value="past">過去課程</option>
+              <option value="this-month">本月課程</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-grid" id="course-list-container">
+        <!-- Dynamically loaded via JS -->
+      </div>
+    </section>
+
+    <!-- 2. COURSE DETAIL VIEW -->
+    <section id="course-view" class="view-section">
+      <div class="back-nav">
+        <button id="btn-back-home" class="btn btn-secondary">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          返回課程列表
+        </button>
+      </div>
+
+      <div class="course-detail-header">
+        <h1 class="course-title" id="course-detail-title">課程名稱</h1>
+        <div class="course-meta">
+          <span class="badge badge-primary" id="course-detail-badge">課程時數</span>
+          <span class="course-meta-text">上課日：<span id="course-detail-date">日期</span></span>
+          <span class="course-meta-divider">|</span>
+          <span class="course-meta-text">授課講師：<span id="course-detail-instructor">-</span></span>
+        </div>
+      </div>
+
+      <!-- Tab bar to switch between Prep and Content -->
+      <div class="tabs-container">
+        <button class="tab-btn active" id="tab-btn-prep">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 15 15"></polyline></svg>
+          課前準備 (Prep)
+        </button>
+        <button class="tab-btn" id="tab-btn-content">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          正式課程內容 (Content)
+        </button>
+      </div>
+
+      <div class="course-layout">
+        <!-- Left: Slide Viewer -->
+        <div class="course-left">
+          <div class="card viewer-card">
+            
+            <!-- Locked State Screen for Slides -->
+            <div id="viewer-locked-banner" class="locked-banner-container hidden">
+              <svg class="locked-banner-icon icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <h4 class="locked-banner-title">正式課程簡報已鎖定</h4>
+              <p class="locked-banner-desc">此部分為受密碼保護的正式課程簡報。請輸入班導師提供之專屬密碼解鎖完整內容。</p>
+              <button id="btn-unlock-content-via-viewer" class="btn btn-primary">輸入密碼解鎖</button>
+            </div>
+
+            <div id="viewer-active-content">
+              <div class="viewer-header">
+                <h3 class="card-title" id="slide-viewer-title">
+                  <svg class="icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="13" x2="15" y2="13"></line><line x1="9" y1="17" x2="11" y2="17"></line></svg>
+                  投影片線上瀏覽
+                </h3>
+                <div class="viewer-actions">
+                  <button id="btn-toggle-play" class="btn btn-icon" title="自動播放">
+                    <svg id="play-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <svg id="pause-icon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                  </button>
+                  <button id="btn-fullscreen" class="btn btn-icon" title="全螢幕">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Slide Container -->
+              <div class="slide-container" id="slide-stage">
+                <div class="slide-stage-inner">
+                  <img id="active-slide-img" src="" alt="Slide Content">
+                  <canvas id="active-slide-canvas" class="hidden" style="max-width: 100%; max-height: 100%; object-fit: contain; margin: auto; display: block;"></canvas>
+                  <div class="slide-loading-overlay" id="slide-loading">
+                    <div class="spinner"></div>
+                  </div>
+                </div>
+                
+                <!-- Next/Prev floating arrows on overlay -->
+                <button id="btn-slide-prev-overlay" class="slide-arrow-overlay left-arrow" aria-label="上一張">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button id="btn-slide-next-overlay" class="slide-arrow-overlay right-arrow" aria-label="下一張">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </div>
+
+              <!-- Slide Progress & Controls -->
+              <div class="viewer-controls">
+                <button id="btn-slide-prev" class="btn btn-secondary btn-sm">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                  上一張
+                </button>
+                
+                <div class="progress-info">
+                  <span class="slide-page-indicator" id="slide-number">第 1 / 1 頁</span>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="slide-progress-bar"></div>
+                  </div>
+                </div>
+
+                <button id="btn-slide-next" class="btn btn-secondary btn-sm">
+                  下一張
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </div>
+
+              <!-- Slide Thumbnails Grid -->
+              <div class="thumbnails-container">
+                <div class="thumbnails-track" id="slide-thumbnails-container">
+                  <!-- Thumbnail items rendered dynamically -->
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <!-- Right: Materials & Downloading -->
+        <div class="course-right">
+          <div class="card downloads-card">
+            <h3 class="card-title" id="downloads-card-title">
+              <svg class="icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              課程教材下載
+            </h3>
+            
+            <!-- Locked State Screen for Downloads -->
+            <div id="downloads-locked-banner" class="locked-banner-container hidden">
+              <svg class="locked-banner-icon icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <h4 class="locked-banner-title">正式教材已鎖定</h4>
+              <p class="locked-banner-desc">此部分為受密碼保護的正式課程教材。請輸入密碼解鎖。</p>
+              <button id="btn-unlock-content-via-downloads" class="btn btn-primary btn-sm">輸入密碼解鎖</button>
+            </div>
+
+            <div id="downloads-active-content">
+              <p class="card-subtitle" id="downloads-card-desc">供課後複習與練習使用，請下載所需教材檔案：</p>
+              
+              <div class="material-list" id="material-list-container">
+                <!-- Dynamically populated downloads -->
+              </div>
+              
+              <div class="download-notice">
+                <svg class="icon info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span>所有下載皆已透過安全工作階段進行管控，非本班學員將無法存取下載連結。</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ADMIN TOOLS VIEW -->
+    <section id="admin-view" class="view-section">
+      <div class="section-header">
+        <h2 class="section-title">課程管理輔助工具</h2>
+        <p class="section-desc">請填寫新課程之設定內容，系統會自動在下方為您打包對應的資料夾與設定檔資源包。</p>
+      </div>
+
+      <div class="card">
+        <div class="tabs-container" id="admin-mode-tabs" style="margin-bottom: 1.5rem;">
+          <button class="tab-btn active" id="btn-admin-mode-new">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            新增全新課程
+          </button>
+          <button class="tab-btn" id="btn-admin-mode-edit">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            編輯既有課程
+          </button>
+        </div>
+
+        <h3 id="admin-form-title">新增課程資訊填寫</h3>
+        <p class="card-subtitle" id="admin-form-subtitle" style="margin-bottom: 1.5rem;">填寫下方表單以產生新課程的雜湊資料夾結構、檔案與設定檔。</p>
+
+        <!-- Edit Course Selector (Only visible in Edit Mode) -->
+        <div id="admin-edit-course-selector-container" class="hidden" style="margin-bottom: 1.5rem; padding: 1.25rem; background-color: var(--primary-light); border-radius: var(--radius-md); border: 1px solid var(--primary-border);">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="form-select-edit-course" style="font-weight: 600; color: var(--text-dark); display: block; margin-bottom: 0.5rem;">選擇欲編輯的課程：</label>
+            <select id="form-select-edit-course" class="form-control select-control">
+              <option value="">-- 請選擇課程 --</option>
+              <!-- Populated via JS -->
+            </select>
+          </div>
+          
+          <div id="admin-edit-loader-methods" class="hidden">
+            <h5 style="margin-top: 1rem; margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-medium); font-weight: 600;">載入正式教材與投影片設定（選填，若不載入則需手動填寫）：</h5>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <!-- Method 1: Enter Password -->
+              <div style="padding: 0.75rem; border: 1px dashed var(--primary-border); background: var(--bg-card); border-radius: var(--radius-sm);">
+                <label for="form-edit-course-pwd" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.5rem; color: var(--text-medium);">方法 A：輸入該課程密碼自動載入</label>
+                <div style="display: flex; gap: 0.5rem;">
+                  <input type="password" id="form-edit-course-pwd" placeholder="輸入課程密碼" class="form-control" style="font-size: 0.85rem; padding: 0.4rem 0.75rem;">
+                  <button id="btn-admin-load-by-pwd" class="btn btn-primary btn-sm" style="white-space: nowrap;">驗證載入</button>
+                </div>
+              </div>
+              
+              <!-- Method 2: Upload data.json -->
+              <div style="padding: 0.75rem; border: 1px dashed var(--primary-border); background: var(--bg-card); border-radius: var(--radius-sm); display: flex; flex-direction: column; justify-content: center;">
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.5rem; color: var(--text-medium);">方法 B：手動載入課程的 data.json 檔案</label>
+                <div style="position: relative; overflow: hidden; display: inline-block;">
+                  <button class="btn btn-secondary btn-sm" style="width: 100%; font-size: 0.85rem; padding: 0.4rem 0.75rem;">📂 選擇 data.json 檔案</button>
+                  <input type="file" id="form-edit-course-file" accept=".json" style="position: absolute; font-size: 100px; right: 0; top: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;">
+                </div>
+              </div>
+            </div>
+            <div id="admin-edit-load-status" class="small-hint" style="margin-top: 0.5rem; font-weight: 500; display: none;"></div>
+          </div>
+        </div>
+
+        
+        <div class="admin-grid">
+          <div class="form-group">
+            <label for="form-course-id">課程識別代號 (Course ID)：</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="text" id="form-course-id" readonly placeholder="系統自動產生" class="form-control" style="background-color: #f1f5f9; cursor: not-allowed;">
+              <button id="btn-generate-id" class="btn btn-secondary" style="white-space: nowrap;">重新產生</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="form-course-title">課程標題 (Title)：</label>
+            <input type="text" id="form-course-title" placeholder="例如: Vue.js 基礎應用課程" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="form-course-date">課程日期 (Date)：</label>
+            <input type="date" id="form-course-date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="form-course-instructor">授課講師 (Instructor)：</label>
+            <input type="text" id="form-course-instructor" placeholder="例如: 張老師" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="form-course-duration">課程時數 (Duration)：</label>
+            <input type="text" id="form-course-duration" placeholder="例如: 3 小時" class="form-control">
+          </div>
+          <div class="form-group">
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <label for="form-course-pwd" style="margin-bottom: 0;">課程解鎖密碼 (Password)：</label>
+                <label style="display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; font-weight: 600; font-size: 0.85rem; color: var(--text-medium); margin-bottom: 0;">
+                  <input type="checkbox" id="form-course-pwd-toggle" checked style="width: 14px; height: 14px; cursor: pointer;">
+                  啟用密碼保護
+                </label>
+              </div>
+              <input type="text" id="form-course-pwd" placeholder="例如: vue2026" class="form-control">
+            </div>
+          </div>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="form-course-description">課程簡介 (Description)：</label>
+            <textarea id="form-course-description" placeholder="例如: 這是本課程的簡報與教材說明，供學員線上瀏覽與下載..." class="form-control" rows="3" style="resize: vertical; min-height: 80px;"></textarea>
+          </div>
+        </div>
+
+
+        <!-- Section 1: Prep Configuration -->
+        <div class="admin-section-title">
+          <span>1. 課前準備設定 (Prep Settings)</span>
+        </div>
+        <div class="admin-grid" style="grid-template-columns: 1fr; max-width: 500px; margin-bottom: 0.75rem;">
+          <div class="form-group">
+            <label for="form-prep-slides-pdf">選擇課前準備簡報 (PDF 格式)：</label>
+            <select id="form-prep-slides-pdf" class="form-control select-control">
+              <option value="">-- 請先在下方教材清單中新增 PDF 檔案 --</option>
+            </select>
+          </div>
+        </div>
+        <div id="admin-prep-pdf-hint" class="small-hint" style="margin-top: -0.75rem; margin-bottom: 1.25rem; color: var(--text-light); font-weight: 500; font-size: 0.825rem; line-height: 1.4;">
+          💡 <strong>簡報來源說明：</strong>請先在下方的「教材與檔案管理」中新增 PDF 檔案，並選擇分類為「課前準備」，系統會自動同步至上方供您選擇作為此課程的簡報播放來源。
+        </div>
+
+        <!-- Section 2: Content Configuration -->
+        <div class="admin-section-title">
+          <span>2. 正式課程內容設定 (Content Settings)</span>
+        </div>
+        
+        <div class="admin-grid" style="grid-template-columns: 1fr; max-width: 500px; margin-bottom: 0.75rem;">
+          <div class="form-group">
+            <label for="form-content-slides-pdf">選擇正式課程簡報 (PDF 格式)：</label>
+            <select id="form-content-slides-pdf" class="form-control select-control">
+              <option value="">-- 請先在下方教材清單中新增 PDF 檔案 --</option>
+            </select>
+          </div>
+        </div>
+        <div id="admin-content-pdf-hint" class="small-hint" style="margin-top: -0.75rem; margin-bottom: 1.25rem; color: var(--text-light); font-weight: 500; font-size: 0.825rem; line-height: 1.4;">
+          💡 <strong>簡報來源說明：</strong>請先在下方的「教材與檔案管理」中新增 PDF 檔案，並選擇分類為「正式課程」，系統會自動同步至上方供您選擇作為此課程的簡報播放來源。
+        </div>
+
+        <!-- Section 3: Files Management -->
+        <div class="admin-section-title">
+          <span>3. 教材與檔案管理 (Files Management)</span>
+        </div>
+        
+        <div class="form-group">
+          <label>教材與檔案清單：</label>
+          <div style="margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+            <button id="btn-add-file-row" class="btn btn-secondary btn-sm" type="button">
+              <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              手動新增檔案列
+            </button>
+            <button id="btn-add-link-row" class="btn btn-secondary btn-sm" type="button" style="background-color: var(--success-light); border-color: #a7f3d0; color: var(--success);">
+              <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              新增參考連結
+            </button>
+            <div style="position: relative; overflow: hidden; display: inline-block;">
+              <button class="btn btn-secondary btn-sm" type="button" style="background-color: var(--primary-light); border-color: var(--primary-border); color: var(--primary);">📁 選擇實體檔案上傳 (可多選)</button>
+              <input type="file" id="form-upload-files" multiple style="position: absolute; font-size: 100px; right: 0; top: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;">
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-files-table" id="table-unified-files">
+              <thead>
+                <tr>
+                  <th style="width: 35%">教材/連結名稱與內容</th>
+                  <th style="width: 15%">大小 / 屬性</th>
+                  <th style="width: 20%">使用區塊 (分類)</th>
+                  <th style="width: 18%; text-align: center;">排序</th>
+                  <th style="width: 12%; text-align: center;">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dynamic rows will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="admin-actions-bar">
+          <button id="btn-admin-submit" class="btn btn-primary">建立課程</button>
+          <button id="btn-admin-reset" class="btn btn-secondary">清空表單</button>
+          <button id="btn-admin-delete" class="btn btn-danger hidden" style="margin-left: auto;">❌ 刪除此課程</button>
+        </div>
+
+
+        <!-- Output Result Panel -->
+        <div id="admin-result-area" class="admin-result hidden">
+          <div class="result-box" id="result-box-folders">
+            <h4>1. 新課程應放置的資料夾路徑 (請在 <code>courses</code> 下建立此資料夾)：</h4>
+            <div class="code-block-container">
+              <code id="admin-result-foldername">courses/[hash]</code>
+              <button class="btn btn-sm btn-secondary btn-copy" data-clipboard-target="#admin-result-foldername">複製路徑</button>
+            </div>
+            
+            <h4 style="margin-top: 1.25rem; margin-bottom: 0.5rem; font-size: 0.9rem;">一鍵在 Windows 系統中建立所有目錄結構：</h4>
+            <p class="small-hint">請開啟 PowerShell 並貼上執行以下指令，系統會為您自動生成新課程的本地目錄：</p>
+            <div class="code-block-container">
+              <code id="admin-result-shell" style="font-size: 0.8rem; overflow-x: auto;"># PowerShell 指令</code>
+              <button class="btn btn-sm btn-secondary btn-copy" data-clipboard-target="#admin-result-shell">複製指令</button>
+            </div>
+          </div>
+
+          <div class="result-box" id="result-box-datajson">
+            <h4>2. 新課程私有設定檔下載 <code>data.json</code>：</h4>
+            <p class="small-hint">點選下方下載 data.json，並將此檔案放入上述建立 of <code>courses/[hash]</code> 資料夾中：</p>
+            <div style="margin-top: 0.5rem;">
+              <button id="btn-download-data-json" class="btn btn-primary btn-sm">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                下載 data.json 檔案
+              </button>
+            </div>
+          </div>
+          
+          <div class="result-box" id="result-box-configjs">
+            <h4>3. 新課程對應的公開 <code>config.js</code> 更新版：</h4>
+            <p class="small-hint">點選下載最新的完整 <code>config.js</code> 檔案，直接覆蓋替換掉網頁根目錄底下的 <code>config.js</code> 即可：</p>
+            <div style="margin-top: 0.5rem;">
+              <button id="btn-download-config-js" class="btn btn-primary btn-sm">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                下載完整新 config.js 檔案
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container footer-container">
+      <p>&copy; 2026 課程學習中心. 適用於 雲端代管環境.</p>
+    </div>
+  </footer>
+
+  <!-- AUTH MODAL (Password prompt) -->
+  <div class="modal-backdrop" id="auth-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="btn-close-auth">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div class="modal-header-icon text-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      </div>
+      <h3 class="modal-title">輸入課程密碼</h3>
+      <p class="modal-subtitle">「<span id="auth-course-title">課程</span>」內容受權限保護，請輸入班導師提供之專屬課程密碼以進行解鎖：</p>
+      
+      <div class="form-group password-group">
+        <input type="password" id="input-course-pwd" class="form-control text-center" placeholder="輸入課程密碼" autocomplete="off">
+        <button id="btn-toggle-pwd-visibility" class="btn btn-icon pwd-toggle-btn" title="顯示密碼">
+          <svg id="eye-open-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          <svg id="eye-closed-icon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+        </button>
+      </div>
+
+      <div class="error-message hidden" id="auth-error-msg">
+        密碼不正確，請重新輸入。如有疑問請洽詢講師或助教。
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-cancel-auth" class="btn btn-secondary">取消</button>
+        <button id="btn-submit-auth" class="btn btn-primary">
+          <span class="btn-text">驗證並解鎖</span>
+          <div class="btn-spinner hidden" id="auth-spinner"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD TERMS MODAL -->
+  <div class="modal-backdrop" id="terms-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="btn-close-terms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div class="modal-header-icon text-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      </div>
+      <h3 class="modal-title">教材下載安全聲明</h3>
+      
+      <div class="terms-content">
+        <p>您即將下載：<strong id="terms-filename" class="text-primary">file.zip</strong></p>
+        <div class="terms-box">
+          <h5>請遵守以下規範：</h5>
+          <ul>
+            <li>本教材僅授權本課程之正課學員個人學習使用。</li>
+            <li><strong>嚴禁</strong>將教材內容分享、轉載、公開上傳至任何公開社群或雲端空間。</li>
+            <li><strong>嚴禁</strong>用於任何商業、教學收費或其他營利性之行為。</li>
+            <li>下載行為將會被系統在本地瀏覽器紀錄，作為下載控管記錄。</li>
+          </ul>
+        </div>
+        
+        <label class="checkbox-container">
+          <input type="checkbox" id="chk-agree-terms">
+          <span class="checkmark"></span>
+          我已閱讀並同意上述聲明，承諾妥善保管教材。
+        </label>
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-cancel-terms" class="btn btn-secondary">取消下載</button>
+        <button id="btn-confirm-download" class="btn btn-primary" disabled>確認下載</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN AUTH MODAL -->
+  <div class="modal-backdrop" id="admin-auth-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="btn-close-admin-auth">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div class="modal-header-icon text-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      </div>
+      <h3 class="modal-title">管理員登入</h3>
+      <p class="modal-subtitle">存取管理工具需要管理權限。請輸入管理員密碼：</p>
+      
+      <div class="form-group password-group">
+        <input type="password" id="input-admin-pwd" class="form-control text-center" placeholder="輸入管理員密碼" autocomplete="off">
+        <button id="btn-toggle-admin-pwd-visibility" class="btn btn-icon pwd-toggle-btn" title="顯示密碼">
+          <svg id="admin-eye-open-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          <svg id="admin-eye-closed-icon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+        </button>
+      </div>
+
+      <div class="error-message hidden" id="admin-auth-error-msg">
+        密碼不正確，請重新輸入。
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-cancel-admin-auth" class="btn btn-secondary">取消</button>
+        <button id="btn-submit-admin-auth" class="btn btn-primary">
+          <span class="btn-text">驗證並登入</span>
+          <div class="btn-spinner hidden" id="admin-auth-spinner"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Notification Toast -->
+  <div class="toast" id="toast-notification">
+    <div class="toast-content">
+      <svg class="toast-icon text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      <span class="toast-message" id="toast-message-text">操作成功！</span>
+    </div>
+  </div>
+
+  <!-- Load PDF.js from Cloudflare CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+  </script>
+
+  <!-- Load Public Scripts -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /courses/
+Disallow: /api/
+Disallow: /*/data.json
+Disallow: /*/downloads/
+Disallow: /*/slides/

@@ -1,0 +1,16 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+courses/
+node_modules/
+
+# Dependency directories
+jspm_packages/
+web_modules/
+
+# OS metadata
+.DS_Store
+Thumbs.db
