@@ -1454,6 +1454,9 @@ function switchAdminMode(mode) {
     elements.adminEditSelectorContainer.classList.add('hidden');
     elements.formCourseId.value = generateRandomCourseId();
     elements.btnAdminSubmit.textContent = '建立課程';
+    
+    setAdminFieldsDisabled(false);
+    isContentUnlocked = true;
   } else {
     elements.adminTabNew.classList.remove('active');
     elements.adminTabEdit.classList.add('active');
@@ -1545,6 +1548,7 @@ async function handleSelectEditCourseChange() {
   elements.formCourseInstructor.disabled = false;
   elements.formCourseDuration.disabled = false;
   elements.formCourseDescription.disabled = false;
+  elements.formPrepReminder.disabled = false;
   
   elements.formPrepSlidesPdf.disabled = false;
   elements.btnAddFileRow.disabled = false;
