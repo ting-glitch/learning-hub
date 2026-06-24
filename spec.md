@@ -71,7 +71,8 @@ const COURSE_CATALOG = [
           "description": "請課前安裝完成"
         }
       ],
-      "pdfSlidesFile": "prep/downloads/prep_guide.pdf" // 課前簡報播放來源
+      "pdfSlidesFile": "prep/downloads/prep_guide.pdf", // 課前簡報播放來源
+      "reminder": "請務必於課前安裝完成 VS Code 軟體" // (選填) 課前準備提示文字
     }
   }
 ];
@@ -97,7 +98,9 @@ const COURSE_CATALOG = [
       "description": "請課後填寫"
     }
   ],
-  "pdfSlidesFile": "downloads/final_slides.pdf" // 正式課程簡報播放來源
+  "pdfSlidesFile": "downloads/final_slides.pdf", // 正式課程簡報播放來源
+  "reminder": "本週作業期限截止至下週三中午 12:00", // (選填) 正式課程提示文字
+  "assignmentUrl": "https://forms.gle/xyz"        // (選填) 作業繳交連結
 }
 ```
 

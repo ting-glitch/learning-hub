@@ -217,8 +217,29 @@
                 <svg class="icon info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 <span>所有下載皆已透過安全工作階段進行管控，非本班學員將無法存取下載連結。</span>
               </div>
+              
+              <!-- Reminder Highlight Box (Dynamically populated/toggled via JS) -->
+              <div id="reminder-container" class="reminder-highlight-box hidden" style="margin-top: 1.25rem;">
+                <div class="reminder-icon-area">
+                  <svg class="icon reminder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <div class="reminder-text-area" id="reminder-text"></div>
+              </div>
             </div>
 
+          </div>
+          
+          <!-- Assignment Submission Card (Dynamically populated/toggled via JS) -->
+          <div id="assignment-section" class="card assignment-card hidden" style="margin-top: 1.5rem;">
+            <h3 class="card-title">
+              <svg class="icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><path d="M12 11v6"></path><path d="M9 14h6"></path></svg>
+              作業繳交區
+            </h3>
+            <p class="card-subtitle">本課程的作業繳交連結已開放，請點擊下方按鈕前往繳交：</p>
+            <a id="btn-assignment-link" href="#" target="_blank" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-top: 1rem; padding: 0.75rem 1rem; font-weight: 600; text-decoration: none;">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              前往繳交作業
+            </a>
           </div>
         </div>
       </div>
@@ -333,8 +354,12 @@
           <div class="form-group">
             <label for="form-prep-slides-pdf">選擇課前準備簡報 (PDF 格式)：</label>
             <select id="form-prep-slides-pdf" class="form-control select-control">
-              <option value="">-- 請先在下方教材清單中新增 PDF 檔案 --</option>
+               <option value="">-- 請先在下方教材清單中新增 PDF 檔案 --</option>
             </select>
+          </div>
+          <div class="form-group">
+            <label for="form-prep-reminder">課前準備提醒文字 (選填，主要是 highlight 一段文字)：</label>
+            <input type="text" id="form-prep-reminder" placeholder="例如: 請務必於課前安裝完成 VS Code 軟體" class="form-control">
           </div>
         </div>
         <div id="admin-prep-pdf-hint" class="small-hint" style="margin-top: -0.75rem; margin-bottom: 1.25rem; color: var(--text-light); font-weight: 500; font-size: 0.825rem; line-height: 1.4;">
@@ -352,6 +377,14 @@
             <select id="form-content-slides-pdf" class="form-control select-control">
               <option value="">-- 請先在下方教材清單中新增 PDF 檔案 --</option>
             </select>
+          </div>
+          <div class="form-group">
+            <label for="form-content-reminder">正式課程提醒文字 (選填，主要是 highlight 一段文字)：</label>
+            <input type="text" id="form-content-reminder" placeholder="例如: 本週作業期限截止至下週三中午 12:00" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="form-content-assignment-url">作業繳交連結 (選填)：</label>
+            <input type="text" id="form-content-assignment-url" placeholder="例如: https://forms.gle/... 或 GitHub Classroom 連結" class="form-control">
           </div>
         </div>
         <div id="admin-content-pdf-hint" class="small-hint" style="margin-top: -0.75rem; margin-bottom: 1.25rem; color: var(--text-light); font-weight: 500; font-size: 0.825rem; line-height: 1.4;">

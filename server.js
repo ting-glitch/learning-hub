@@ -38,7 +38,10 @@ function saveCourse(data, res) {
     contentSlidesFile,
     files,
     isEditMode,
-    isContentUnlocked
+    isContentUnlocked,
+    prepReminder,
+    contentReminder,
+    assignmentUrl
   } = data;
   
   if (!courseId || !title || !date || !instructor || !duration) {
@@ -169,18 +172,35 @@ function saveCourse(data, res) {
     }
   }
   
+  let finalContentSlidesFile = contentSlidesFile;
+  let finalContentReminder = contentReminder;
+  let finalAssignmentUrl = assignmentUrl;
+  
+  if (isEditMode && !isContentUnlocked && oldDataJson) {
+    if (!finalContentSlidesFile) {
+      finalContentSlidesFile = oldDataJson.pdfSlidesFile;
+    }
+    if (typeof finalContentReminder === 'undefined' || finalContentReminder === '') {
+      finalContentReminder = oldDataJson.reminder || '';
+    }
+    if (typeof finalAssignmentUrl === 'undefined' || finalAssignmentUrl === '') {
+      finalAssignmentUrl = oldDataJson.assignmentUrl || '';
+    }
+  }
+
   const dataJsonContent = {
     courseId: courseId,
     downloads: contentDownloads
   };
   
-  let finalContentSlidesFile = contentSlidesFile;
-  if (isEditMode && !isContentUnlocked && oldDataJson && !finalContentSlidesFile) {
-    finalContentSlidesFile = oldDataJson.pdfSlidesFile;
-  }
-  
   if (finalContentSlidesFile) {
     dataJsonContent.pdfSlidesFile = finalContentSlidesFile;
+  }
+  if (finalContentReminder) {
+    dataJsonContent.reminder = finalContentReminder;
+  }
+  if (finalAssignmentUrl) {
+    dataJsonContent.assignmentUrl = finalAssignmentUrl;
   }
   
   const dataJsonPath = path.join(__dirname, 'courses', contentDirName, 'data.json');
@@ -231,6 +251,10 @@ function saveCourse(data, res) {
   
   if (prepSlidesFile) {
     newCourseObject.prep.pdfSlidesFile = prepSlidesFile;
+  }
+  
+  if (prepReminder) {
+    newCourseObject.prep.reminder = prepReminder;
   }
   
   if (existingIdx > -1) {

@@ -159,7 +159,17 @@ const elements = {
   inputEditCoursePwd: document.getElementById('form-edit-course-pwd'),
   btnAdminLoadByPwd: document.getElementById('btn-admin-load-by-pwd'),
   inputEditCourseFile: document.getElementById('form-edit-course-file'),
-  adminEditLoadStatus: document.getElementById('admin-edit-load-status')
+  adminEditLoadStatus: document.getElementById('admin-edit-load-status'),
+  
+  formPrepReminder: document.getElementById('form-prep-reminder'),
+  formContentReminder: document.getElementById('form-content-reminder'),
+  formContentAssignmentUrl: document.getElementById('form-content-assignment-url'),
+  
+  reminderContainer: document.getElementById('reminder-container'),
+  reminderText: document.getElementById('reminder-text'),
+  
+  assignmentSection: document.getElementById('assignment-section'),
+  btnAssignmentLink: document.getElementById('btn-assignment-link')
 };
 
 // --- UTILITY FUNCTIONS ---
@@ -617,6 +627,8 @@ function switchTab(tabName, isContentUnlocked) {
       
       elements.downloadsActiveContent.classList.add('hidden');
       elements.downloadsLockedBanner.classList.remove('hidden');
+      
+      elements.assignmentSection.classList.add('hidden');
     }
   }
 }
@@ -664,6 +676,18 @@ function renderPrepContent(course) {
   } else {
     elements.materialListContainer.innerHTML = '<div style="padding: 1.5rem; text-align: center; color: var(--text-light);">本課程無課前教材。</div>';
   }
+  
+  // Render Prep Reminder if exists
+  if (course.prep && course.prep.reminder) {
+    elements.reminderText.textContent = course.prep.reminder;
+    elements.reminderContainer.classList.remove('hidden');
+  } else {
+    elements.reminderContainer.classList.add('hidden');
+    elements.reminderText.textContent = '';
+  }
+  
+  // Hide assignment section since it's only for content
+  elements.assignmentSection.classList.add('hidden');
 }
 
 // Render unlocked "Course Content" view
@@ -695,11 +719,28 @@ function renderMainContent() {
   elements.materialListContainer.innerHTML = '';
   if (!activeCourseData.downloads || activeCourseData.downloads.length === 0) {
     elements.materialListContainer.innerHTML = '<div style="padding: 1.5rem; text-align: center; color: var(--text-light);">本課程無正式教材。</div>';
-    return;
+  } else {
+    activeCourseData.downloads.forEach(dl => {
+      renderFileRow(dl, pathPrefix);
+    });
   }
-  activeCourseData.downloads.forEach(dl => {
-    renderFileRow(dl, pathPrefix);
-  });
+  
+  // Render Content Reminder if exists
+  if (activeCourseData && activeCourseData.reminder) {
+    elements.reminderText.textContent = activeCourseData.reminder;
+    elements.reminderContainer.classList.remove('hidden');
+  } else {
+    elements.reminderContainer.classList.add('hidden');
+    elements.reminderText.textContent = '';
+  }
+  
+  // Render Assignment Link if exists
+  if (activeCourseData && activeCourseData.assignmentUrl) {
+    elements.btnAssignmentLink.href = activeCourseData.assignmentUrl;
+    elements.assignmentSection.classList.remove('hidden');
+  } else {
+    elements.assignmentSection.classList.add('hidden');
+  }
 }
 
 // Render individual file downloads row or reference link row
@@ -1355,6 +1396,8 @@ function generateRandomCourseId() {
 // Helper: Disable/Enable only Content Settings fields
 function setAdminContentFieldsDisabled(disabled) {
   elements.formContentSlidesPdf.disabled = disabled;
+  elements.formContentReminder.disabled = disabled;
+  elements.formContentAssignmentUrl.disabled = disabled;
   
   // Disable category select, name input, size input, and delete button for content files in the unified table
   const rows = elements.tableUnifiedFiles.querySelectorAll('tr');
@@ -1377,6 +1420,7 @@ function setAdminFieldsDisabled(disabled) {
   elements.formCourseDuration.disabled = disabled;
   elements.formCourseDescription.disabled = disabled;
   elements.formCoursePwd.disabled = disabled;
+  elements.formPrepReminder.disabled = disabled;
   
   elements.formPrepSlidesPdf.disabled = disabled;
   elements.btnAddFileRow.disabled = disabled;
@@ -1466,6 +1510,7 @@ async function handleSelectEditCourseChange() {
   elements.formCourseInstructor.value = course.instructor;
   elements.formCourseDuration.value = course.duration;
   elements.formCourseDescription.value = course.description || '';
+  elements.formPrepReminder.value = (course.prep && course.prep.reminder) ? course.prep.reminder : '';
   
   // 2. Populate Prep downloads in unified table
   elements.tableUnifiedFiles.innerHTML = '';
@@ -1490,6 +1535,8 @@ async function handleSelectEditCourseChange() {
   // Clear Content private details (wait for password/json load)
   elements.formCoursePwd.value = '';
   elements.formContentSlidesPdf.innerHTML = '<option value="">-- 請先解鎖並在下方教材清單中新增 PDF 檔案 --</option>';
+  elements.formContentReminder.value = '';
+  elements.formContentAssignmentUrl.value = '';
   clearContentFilesFromTable();
   
   // UNLOCK basic fields, lock only content settings
@@ -1557,6 +1604,9 @@ async function handleSelectEditCourseChange() {
         } else {
           elements.formContentSlidesPdf.value = '';
         }
+        
+        elements.formContentReminder.value = data.reminder || '';
+        elements.formContentAssignmentUrl.value = data.assignmentUrl || '';
       }
     } catch (e) {
       clearContentFilesFromTable();
@@ -1631,6 +1681,9 @@ async function handleEditCourseLoadByPwd() {
       elements.formContentSlidesPdf.value = '';
     }
     
+    elements.formContentReminder.value = data.reminder || '';
+    elements.formContentAssignmentUrl.value = data.assignmentUrl || '';
+    
     // Unlock content fields
     setAdminContentFieldsDisabled(false);
     isContentUnlocked = true;
@@ -1679,6 +1732,9 @@ function handleEditCourseLoadByFile(e) {
       } else {
         elements.formContentSlidesPdf.value = '';
       }
+      
+      elements.formContentReminder.value = data.reminder || '';
+      elements.formContentAssignmentUrl.value = data.assignmentUrl || '';
       
       // Unlock content fields
       setAdminContentFieldsDisabled(false);
@@ -1732,7 +1788,10 @@ async function handleAdminSubmit() {
     contentSlidesFile,
     files,
     isEditMode: adminMode === 'edit',
-    isContentUnlocked: isContentUnlocked
+    isContentUnlocked: isContentUnlocked,
+    prepReminder: elements.formPrepReminder.value.trim(),
+    contentReminder: elements.formContentReminder.value.trim(),
+    assignmentUrl: elements.formContentAssignmentUrl.value.trim()
   };
   
   // Disable submit button and show status
@@ -1816,6 +1875,9 @@ function handleResetAdminForm() {
   elements.formCourseDuration.value = '';
   elements.formCourseDescription.value = '';
   elements.formCoursePwd.value = '';
+  elements.formPrepReminder.value = '';
+  elements.formContentReminder.value = '';
+  elements.formContentAssignmentUrl.value = '';
   
   if (elements.formCoursePwdToggle) {
     elements.formCoursePwdToggle.checked = true;
