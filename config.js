@@ -39,7 +39,7 @@ const COURSE_CATALOG = [
         }
       ],
       "pdfSlidesFile": "prep/downloads/Google Antigravity安裝教學.pdf",
-      "reminder": "由於Google免費版有Token使用上限，請提前準備2-3組Google帳號；若有Google AI Pro權限，會有較多Token使用。若沒訂閱Google AI Pro，無需特別購買，謝謝!"
+      "reminder": "一般Google帳號有Token使用上限，建議準備2-3組Google帳號。若已訂閱Google AI Pro，該方案會有較多Token。若無訂閱Google AI Pro，無需特別購買，謝謝!"
     }
   }
 ];
