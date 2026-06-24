@@ -165,8 +165,10 @@ const elements = {
   formContentReminder: document.getElementById('form-content-reminder'),
   formContentAssignmentUrl: document.getElementById('form-content-assignment-url'),
   
-  reminderContainer: document.getElementById('reminder-container'),
-  reminderText: document.getElementById('reminder-text'),
+  prepReminderContainer: document.getElementById('prep-reminder-container'),
+  prepReminderText: document.getElementById('prep-reminder-text'),
+  contentReminderContainer: document.getElementById('content-reminder-container'),
+  contentReminderText: document.getElementById('content-reminder-text'),
   
   assignmentSection: document.getElementById('assignment-section'),
   btnAssignmentLink: document.getElementById('btn-assignment-link')
@@ -629,6 +631,8 @@ function switchTab(tabName, isContentUnlocked) {
       elements.downloadsLockedBanner.classList.remove('hidden');
       
       elements.assignmentSection.classList.add('hidden');
+      elements.prepReminderContainer.classList.add('hidden');
+      elements.contentReminderContainer.classList.add('hidden');
     }
   }
 }
@@ -679,12 +683,14 @@ function renderPrepContent(course) {
   
   // Render Prep Reminder if exists
   if (course.prep && course.prep.reminder) {
-    elements.reminderText.textContent = course.prep.reminder;
-    elements.reminderContainer.classList.remove('hidden');
+    elements.prepReminderText.textContent = course.prep.reminder;
+    elements.prepReminderContainer.classList.remove('hidden');
   } else {
-    elements.reminderContainer.classList.add('hidden');
-    elements.reminderText.textContent = '';
+    elements.prepReminderContainer.classList.add('hidden');
+    elements.prepReminderText.textContent = '';
   }
+  
+  elements.contentReminderContainer.classList.add('hidden');
   
   // Hide assignment section since it's only for content
   elements.assignmentSection.classList.add('hidden');
@@ -727,12 +733,14 @@ function renderMainContent() {
   
   // Render Content Reminder if exists
   if (activeCourseData && activeCourseData.reminder) {
-    elements.reminderText.textContent = activeCourseData.reminder;
-    elements.reminderContainer.classList.remove('hidden');
+    elements.contentReminderText.textContent = activeCourseData.reminder;
+    elements.contentReminderContainer.classList.remove('hidden');
   } else {
-    elements.reminderContainer.classList.add('hidden');
-    elements.reminderText.textContent = '';
+    elements.contentReminderContainer.classList.add('hidden');
+    elements.contentReminderText.textContent = '';
   }
+  
+  elements.prepReminderContainer.classList.add('hidden');
   
   // Render Assignment Link if exists
   if (activeCourseData && activeCourseData.assignmentUrl) {
