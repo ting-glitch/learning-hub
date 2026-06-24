@@ -1811,7 +1811,7 @@ input[type="date"].form-control:disabled::-webkit-calendar-picker-indicator {
   color: var(--text-dark);
   font-size: 0.9rem;
   line-height: 1.5;
-  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
   align-items: flex-start;
 }
 
