@@ -810,6 +810,59 @@ function renderHintsContent() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         1. VBA 實作
       </h3>
+      ${activeCourseData.courseId === 'course-0vvk06' ? `
+      <div class="card" style="padding: 1.25rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+        <div style="font-weight: 600; color: var(--text-dark); margin-bottom: 0.75rem; font-size: 0.95rem; display: flex; align-items: center; gap: 0.4rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; color: var(--primary);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          本階段實作所需檔案下載
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+          
+          <div class="material-item" style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; background-color: var(--card-bg);">
+            <div class="material-info" style="display: flex; align-items: center; gap: 0.75rem;">
+              <div class="file-icon-box ext-xlsm" style="flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; border-radius: var(--radius-sm); background-color: #107c41; color: #ffffff;">XLSM</div>
+              <div class="material-details" style="display: flex; flex-direction: column;">
+                <span class="material-name" style="font-weight: 600; font-size: 0.85rem; color: var(--text-dark);">信用卡消費彙整表_題目.xlsm</span>
+                <span class="material-meta" style="font-size: 0.7rem; color: var(--text-light);">大小: 45 KB</span>
+              </div>
+            </div>
+            <a href="courses/course-0vvk06/prep/downloads/信用卡消費彙整表_題目.xlsm" class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem;" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 12px; height: 12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              下載
+            </a>
+          </div>
+
+          <div class="material-item" style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; background-color: var(--card-bg);">
+            <div class="material-info" style="display: flex; align-items: center; gap: 0.75rem;">
+              <div class="file-icon-box ext-xlsx" style="flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; border-radius: var(--radius-sm); background-color: #107c41; color: #ffffff;">XLSX</div>
+              <div class="material-details" style="display: flex; flex-direction: column;">
+                <span class="material-name" style="font-weight: 600; font-size: 0.85rem; color: var(--text-dark);">消費分類對照表.xlsx</span>
+                <span class="material-meta" style="font-size: 0.7rem; color: var(--text-light);">大小: 11 KB</span>
+              </div>
+            </div>
+            <a href="courses/course-0vvk06/prep/downloads/消費分類對照表.xlsx" class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem;" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 12px; height: 12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              下載
+            </a>
+          </div>
+
+          <div class="material-item" style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; background-color: var(--card-bg);">
+            <div class="material-info" style="display: flex; align-items: center; gap: 0.75rem;">
+              <div class="file-icon-box ext-zip" style="flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; border-radius: var(--radius-sm); background-color: #f7a93b; color: #ffffff;">ZIP</div>
+              <div class="material-details" style="display: flex; flex-direction: column;">
+                <span class="material-name" style="font-weight: 600; font-size: 0.85rem; color: var(--text-dark);">帳單明細_報表資料夾.zip</span>
+                <span class="material-meta" style="font-size: 0.7rem; color: var(--text-light);">大小: 59 KB</span>
+              </div>
+            </div>
+            <a href="courses/course-0vvk06/prep/downloads/帳單明細_報表.zip" class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem;" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 12px; height: 12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              下載
+            </a>
+          </div>
+
+        </div>
+      </div>
+      ` : ''}
       <div class="hints-table-container">
         <table class="hints-table">
           <thead>
