@@ -808,14 +808,14 @@ function renderHintsContent() {
     vbaSec.innerHTML = `
       <h3 class="hints-section-title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        1. VBA 實作分步提示 (VBA Step-by-Step Hints)
+        1. VBA 實作
       </h3>
       <div class="hints-table-container">
         <table class="hints-table">
           <thead>
             <tr>
-              <th style="width: 25%;">題目 (Task)</th>
-              <th style="width: 45%;">說明 (Question)</th>
+              <th style="width: 25%;">題目</th>
+              <th style="width: 45%;">說明</th>
               <th style="width: 15%;">參考提示詞</th>
               <th style="width: 15%;">實作程式碼</th>
             </tr>
@@ -852,16 +852,16 @@ function renderHintsContent() {
     evoSec.innerHTML = `
       <h3 class="hints-section-title" style="margin-top: 1rem;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        2. 提示詞演進與程式碼對照 (Prompt Evolution & Optimization)
+        2. VBA提示詞實際撰寫
       </h3>
       <div class="hints-table-container">
         <table class="hints-table">
           <thead>
             <tr>
-              <th style="width: 25%;">版本 (Version)</th>
-              <th style="width: 25%;">我們撰寫的 (Original)</th>
-              <th style="width: 25%;">AI 優化後的提示詞 (AI Optimized)</th>
-              <th style="width: 25%;">變更程式碼 (Code Changes)</th>
+              <th style="width: 25%;">版本</th>
+              <th style="width: 25%;">我們撰寫的</th>
+              <th style="width: 25%;">AI 優化後的提示詞</th>
+              <th style="width: 25%;">程式碼</th>
             </tr>
           </thead>
           <tbody>
@@ -888,7 +888,7 @@ function renderHintsContent() {
                   ${item.code ? `
                     <button class="hints-badge-btn" data-type="evo-code" data-idx="${idx}">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                      對應程式碼
+                      完整程式碼
                     </button>
                   ` : '<span style="color: var(--text-light);">-</span>'}
                 </td>
@@ -907,14 +907,14 @@ function renderHintsContent() {
     vibeSec.innerHTML = `
       <h3 class="hints-section-title" style="margin-top: 1rem;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><polygon points="12 2 2 7 12 12 22 7 12 2z"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-        3. Vibe Coding 實作提示 (AI-Assisted Coding Hints)
+        3. Vibe Coding 實作
       </h3>
       <div class="hints-table-container">
         <table class="hints-table">
           <thead>
             <tr>
-              <th style="width: 25%;">題目 (Task)</th>
-              <th style="width: 45%;">說明 (Question)</th>
+              <th style="width: 25%;">題目</th>
+              <th style="width: 45%;">說明</th>
               <th style="width: 15%;">參考提示詞</th>
               <th style="width: 15%;">實作程式碼</th>
             </tr>
@@ -951,7 +951,7 @@ function renderHintsContent() {
     fullSec.innerHTML = `
       <h3 class="hints-section-title" style="margin-top: 1rem;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M16 18l6-6-6-6M8 6L2 12l6 6"/></svg>
-        4. 完整優化巨集程式碼對照 (Full VBA Code Reference)
+        4. 完整優化巨集程式碼對照
       </h3>
       <div class="card" style="padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
         <div>
@@ -1011,8 +1011,8 @@ function renderHintsContent() {
         content = item.ai;
       } else if (type === 'evo-code') {
         const item = hints.evolution[idx];
-        title = `${item.version} - 對應程式碼`;
-        subtitle = `程式碼變更與新增機制對照`;
+        title = `${item.version} - 完整程式碼`;
+        subtitle = `包含完整 Excel VBA 信用卡帳單自動化整合模組代碼`;
         content = item.code;
       }
       
@@ -1513,8 +1513,8 @@ function addFileRow(filename = '', size = '', category = 'content', isNew = fals
   const tdCategory = document.createElement('td');
   tdCategory.innerHTML = `
     <select class="form-control select-control file-category-select">
-      <option value="prep" ${category === 'prep' ? 'selected' : ''}>課前準備 (Prep)</option>
-      <option value="content" ${category === 'content' ? 'selected' : ''}>正式課程 (Content)</option>
+      <option value="prep" ${category === 'prep' ? 'selected' : ''}>課前準備</option>
+      <option value="content" ${category === 'content' ? 'selected' : ''}>正式課程內容</option>
     </select>
   `;
   
