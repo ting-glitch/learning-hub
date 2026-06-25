@@ -858,7 +858,7 @@ function renderHintsContent() {
         <table class="hints-table">
           <thead>
             <tr>
-              <th style="width: 25%;">版本</th>
+              <th style="width: 25%;">對話過程</th>
               <th style="width: 25%;">我們撰寫的</th>
               <th style="width: 25%;">AI 優化後的提示詞</th>
               <th style="width: 25%;">程式碼</th>
@@ -906,7 +906,7 @@ function renderHintsContent() {
     const vibeSec = document.createElement('div');
     vibeSec.innerHTML = `
       <h3 class="hints-section-title" style="margin-top: 1rem;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><polygon points="12 2 2 7 12 12 22 7 12 2z"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
         3. Vibe Coding 實作
       </h3>
       <div class="hints-table-container">
@@ -944,28 +944,7 @@ function renderHintsContent() {
     `;
     container.appendChild(vibeSec);
   }
-  
-  // Section 4: Full Code (VBA)
-  if (hints.fullCode) {
-    const fullSec = document.createElement('div');
-    fullSec.innerHTML = `
-      <h3 class="hints-section-title" style="margin-top: 1rem;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M16 18l6-6-6-6M8 6L2 12l6 6"/></svg>
-        4. 完整優化巨集程式碼對照
-      </h3>
-      <div class="card" style="padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
-        <div>
-          <h4 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--text-dark);">完整 VBA 模組程式碼</h4>
-          <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-light);">包含完整宣告、各子步驟程序以及樞紐更新之巨集代碼</p>
-        </div>
-        <button class="hints-badge-btn" id="btn-show-full-code" style="padding: 0.5rem 1rem; border-radius: 8px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-          <span>查看完整程式碼</span>
-        </button>
-      </div>
-    `;
-    container.appendChild(fullSec);
-  }
+
   
   elements.hintsActiveContent.appendChild(container);
   
@@ -1019,18 +998,7 @@ function renderHintsContent() {
       openHintsModal(title, subtitle, content);
     });
   });
-  
-  // Bind click for the full code button
-  const btnShowFull = container.querySelector('#btn-show-full-code');
-  if (btnShowFull) {
-    btnShowFull.addEventListener('click', () => {
-      openHintsModal(
-        '完整優化巨集程式碼對照',
-        '包含完整 Excel VBA 信用卡帳單自動化整合模組代碼',
-        hints.fullCode
-      );
-    });
-  }
+
 }
 
 // Open the custom Pop-up Modal Lightbox
