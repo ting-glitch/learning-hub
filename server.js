@@ -50,9 +50,6 @@ function saveCourse(data, res) {
     return;
   }
   
-  const hash = isLocked ? crypto.createHash('sha256').update(password).digest('hex') : '';
-  const contentDirName = isLocked ? hash : courseId;
-  
   // Find old hashed directory if editing
   let oldContentDirName = null;
   let oldDataJson = null;
@@ -80,6 +77,16 @@ function saveCourse(data, res) {
     }
   }
 
+  let hash = '';
+  if (isLocked) {
+    if (password) {
+      hash = crypto.createHash('sha256').update(password).digest('hex');
+    } else if (isEditMode && oldContentDirName) {
+      hash = oldContentDirName;
+    }
+  }
+  const contentDirName = isLocked ? hash : courseId;
+  
   // If old hashed directory exists and hash has changed, rename it first
   if (oldContentDirName && contentDirName !== oldContentDirName) {
     const oldDir = path.join(__dirname, 'courses', oldContentDirName);

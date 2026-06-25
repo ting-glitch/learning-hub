@@ -2308,8 +2308,9 @@ async function handleAdminSubmit() {
   
   const isLocked = elements.formCoursePwdToggle.checked;
   const password = isLocked ? elements.formCoursePwd.value.trim() : '';
+  const isEdit = adminMode === 'edit';
   
-  if (!courseId || !title || !date || !instructor || !duration || (isLocked && !password)) {
+  if (!courseId || !title || !date || !instructor || !duration || (isLocked && !isEdit && !password)) {
     showToast('請填寫所有必要的欄位！', false);
     return;
   }
