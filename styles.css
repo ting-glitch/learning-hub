@@ -2403,7 +2403,18 @@ input[type="date"].form-control:disabled::-webkit-calendar-picker-indicator {
 
 /* VBA Save Methods Section */
 .vba-save-methods-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
   margin-bottom: 2rem;
+  transition: all 0.3s;
+}
+
+.vba-save-methods-section:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .save-method-content {
