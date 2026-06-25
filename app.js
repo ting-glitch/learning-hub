@@ -1042,32 +1042,32 @@ function renderHintsContent() {
         <div class="save-method-info">
           <div class="save-method-title">
             <span class="save-method-step-num">3</span>
-            自訂快捷鍵，秒速觸發自動化
+            自訂功能區巨集按鈕 (快捷鍵自訂工具)
           </div>
           <p class="save-method-desc">
-            當您不希望在工作表放上任何按鈕，或追求更快速的鍵盤流操作時，可以設定專屬的快捷組合鍵（例如 <code>Ctrl + Shift + R</code>），一秒啟動信用卡帳單處理巨集！
+            除了在工作表上繪製按鈕外，您也可以直接在 Excel 上方的「功能區」 (Ribbon) 中，新增一個專屬的巨集執行按鈕。不論切換到哪一個工作表，隨時都能一鍵快速啟動自動化巨集！
           </p>
           <div class="save-method-steps">
             <div class="save-method-step-item">
               <strong>步驟 1:</strong>
-              <div>按下鍵盤 <span>「Alt + F8」</span> 開啟巨集對話框（或點擊 <span>「開發人員」</span> &rarr; <span>「巨集」</span>）。</div>
+              <div>在 Excel 上方功能區的任意空白處點選滑鼠右鍵，選擇 <span>「自訂功能區...」 (Customize the Ribbon)</span>。</div>
             </div>
             <div class="save-method-step-item">
               <strong>步驟 2:</strong>
-              <div>在清單中選取要設定的巨集（如 <span>「FullAutomatedBillingSystem」</span>），並點選右側的 <span>「選項...」 (Options)</span>。</div>
+              <div>在右側清單中選取要放置按鈕的索引標籤（例如「常用」），點擊下方 <span>「新增群組」 (New Group)</span> 建立一個自訂群組。</div>
             </div>
             <div class="save-method-step-item">
               <strong>步驟 3:</strong>
-              <div>在快捷鍵欄位輸入字母（建議配合 <span>Shift</span> 鍵如大寫 <span>R</span>，即為 <span>Ctrl + Shift + R</span>，避免與系統原有快捷鍵衝突）。</div>
+              <div>將左側選單的「選取命令」下拉清單切換為 <span>「巨集」 (Macros)</span>，並選取您要執行的巨集（如 <span>「FullAutomatedBillingSystem」</span>）。</div>
             </div>
             <div class="save-method-step-item">
               <strong>步驟 4:</strong>
-              <div>點擊確定並關閉視窗，之後隨時在工作表中按此快捷鍵即可執行自動化。</div>
+              <div>選中右側剛剛建立的自訂群組，點選中間的 <span>「新增 >>」 (Add)</span> 將該巨集加入群組底下。接著可以點擊 <span>「重新命名...」</span> 設定按鈕的圖示與顯示名稱。</div>
             </div>
           </div>
         </div>
         <div class="save-method-img-box">
-          <img src="courses/course-0vvk06/prep/downloads/shortcut_macro_guide.png" alt="快捷鍵自訂工具導引圖">
+          <img src="courses/course-0vvk06/prep/downloads/shortcut_macro_guide.png" alt="自訂功能區巨集按鈕導引圖">
         </div>
       </div>
     `;
