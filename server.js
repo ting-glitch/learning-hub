@@ -193,6 +193,10 @@ function saveCourse(data, res) {
     downloads: contentDownloads
   };
   
+  if (oldDataJson && oldDataJson.hints) {
+    dataJsonContent.hints = oldDataJson.hints;
+  }
+  
   if (finalContentSlidesFile) {
     dataJsonContent.pdfSlidesFile = finalContentSlidesFile;
   }

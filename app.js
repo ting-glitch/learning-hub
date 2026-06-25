@@ -171,7 +171,14 @@ const elements = {
   contentReminderText: document.getElementById('content-reminder-text'),
   
   assignmentSection: document.getElementById('assignment-section'),
-  btnAssignmentLink: document.getElementById('btn-assignment-link')
+  btnAssignmentLink: document.getElementById('btn-assignment-link'),
+
+  tabHints: document.getElementById('tab-btn-hints'),
+  hintsLayout: document.getElementById('hints-layout'),
+  hintsLockedBanner: document.getElementById('hints-locked-banner'),
+  hintsActiveContent: document.getElementById('hints-active-content'),
+  btnUnlockHints: document.getElementById('btn-unlock-hints'),
+  courseLayout: document.querySelector('.course-layout')
 };
 
 // --- UTILITY FUNCTIONS ---
@@ -604,8 +611,12 @@ function switchTab(tabName, isContentUnlocked) {
   // Toggle tab buttons class
   elements.tabPrep.classList.toggle('active', tabName === 'prep');
   elements.tabContent.classList.toggle('active', tabName === 'content');
+  elements.tabHints.classList.toggle('active', tabName === 'hints');
   
   if (tabName === 'prep') {
+    elements.courseLayout.classList.remove('hidden');
+    elements.hintsLayout.classList.add('hidden');
+    
     // Prep is always unlocked on details page
     elements.viewerLockedBanner.classList.add('hidden');
     elements.viewerActiveContent.classList.remove('hidden');
@@ -613,7 +624,10 @@ function switchTab(tabName, isContentUnlocked) {
     elements.downloadsActiveContent.classList.remove('hidden');
     
     renderPrepContent(course);
-  } else {
+  } else if (tabName === 'content') {
+    elements.courseLayout.classList.remove('hidden');
+    elements.hintsLayout.classList.add('hidden');
+    
     // Content tab
     if (hasAccessToContent) {
       elements.viewerLockedBanner.classList.add('hidden');
@@ -633,6 +647,22 @@ function switchTab(tabName, isContentUnlocked) {
       elements.assignmentSection.classList.add('hidden');
       elements.prepReminderContainer.classList.add('hidden');
       elements.contentReminderContainer.classList.add('hidden');
+    }
+  } else if (tabName === 'hints') {
+    elements.courseLayout.classList.add('hidden');
+    elements.hintsLayout.classList.remove('hidden');
+    
+    elements.prepReminderContainer.classList.add('hidden');
+    elements.contentReminderContainer.classList.add('hidden');
+    
+    if (hasAccessToContent) {
+      elements.hintsLockedBanner.classList.add('hidden');
+      elements.hintsActiveContent.classList.remove('hidden');
+      
+      renderHintsContent();
+    } else {
+      elements.hintsActiveContent.classList.add('hidden');
+      elements.hintsLockedBanner.classList.remove('hidden');
     }
   }
 }
@@ -749,6 +779,291 @@ function renderMainContent() {
   } else {
     elements.assignmentSection.classList.add('hidden');
   }
+}
+
+// Render Hints tab content dynamically
+function renderHintsContent() {
+  elements.hintsActiveContent.innerHTML = '';
+  
+  if (!activeCourseData || !activeCourseData.hints) {
+    elements.hintsActiveContent.innerHTML = '<div class="card" style="padding: 3rem; text-align: center; color: var(--text-light);">本課程目前無實作提示內容。</div>';
+    return;
+  }
+  
+  const hints = activeCourseData.hints;
+  
+  // Create sections
+  const container = document.createElement('div');
+  container.className = 'hints-layout';
+  
+  // Section 1: VBA Steps
+  if (hints.vba && hints.vba.length > 0) {
+    const vbaSec = document.createElement('div');
+    vbaSec.innerHTML = `
+      <h3 class="hints-section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        1. VBA 實作分步提示 (VBA Step-by-Step Hints)
+      </h3>
+    `;
+    const acc = document.createElement('div');
+    acc.className = 'accordion';
+    
+    hints.vba.forEach(item => {
+      const accItem = document.createElement('div');
+      accItem.className = 'accordion-item';
+      accItem.innerHTML = `
+        <div class="accordion-header">
+          <div class="accordion-title-group">
+            <span class="accordion-title">${item.title}</span>
+            <span class="accordion-subtitle">${item.question}</span>
+          </div>
+          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="accordion-content">
+          <div class="hint-blocks-container">
+            <div class="hint-block">
+              <span class="hint-block-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                參考提示詞
+              </span>
+              <button class="copy-btn" data-copy-type="prompt">📋 複製</button>
+              <pre class="prompt-box">${escapeHtml(item.prompt)}</pre>
+            </div>
+            <div class="hint-block">
+              <span class="hint-block-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                實作程式碼 (VBA)
+              </span>
+              <button class="copy-btn" data-copy-type="code">📋 複製</button>
+              <pre class="code-box">${escapeHtml(item.code)}</pre>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Bind accordion toggle
+      const header = accItem.querySelector('.accordion-header');
+      header.addEventListener('click', () => {
+        const isActive = accItem.classList.contains('active');
+        // Close other items
+        acc.querySelectorAll('.accordion-item').forEach(other => other.classList.remove('active'));
+        if (!isActive) {
+          accItem.classList.add('active');
+        }
+      });
+      
+      // Bind copy buttons
+      bindCopyButtons(accItem);
+      
+      acc.appendChild(accItem);
+    });
+    
+    vbaSec.appendChild(acc);
+    container.appendChild(vbaSec);
+  }
+  
+  // Section 2: Prompt Evolution
+  if (hints.evolution && hints.evolution.length > 0) {
+    const evoSec = document.createElement('div');
+    evoSec.innerHTML = `
+      <h3 class="hints-section-title" style="margin-top: 1rem;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        2. 提示詞演進與程式碼對照 (Prompt Evolution & Optimization)
+      </h3>
+    `;
+    const acc = document.createElement('div');
+    acc.className = 'accordion';
+    
+    hints.evolution.forEach(item => {
+      const accItem = document.createElement('div');
+      accItem.className = 'accordion-item';
+      
+      let columnsHtml = '';
+      if (item.ours) {
+        columnsHtml += `
+          <div class="hint-block evolution-card">
+            <div class="evolution-header">我們撰寫的提示詞 (原創)</div>
+            <button class="copy-btn" data-copy-type="prompt">📋 複製</button>
+            <pre class="prompt-box" style="border-left-color: var(--primary);">${escapeHtml(item.ours)}</pre>
+          </div>
+        `;
+      }
+      if (item.ai) {
+        columnsHtml += `
+          <div class="hint-block evolution-card" style="border-left-color: var(--primary-light);">
+            <div class="evolution-header">AI 優化後的提示詞</div>
+            <button class="copy-btn" data-copy-type="prompt">📋 複製</button>
+            <pre class="prompt-box" style="border-left-color: var(--primary-light);">${escapeHtml(item.ai)}</pre>
+          </div>
+        `;
+      }
+      if (item.code) {
+        columnsHtml += `
+          <div class="hint-block evolution-grid-full">
+            <span class="hint-block-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              對應程式碼 (Code Snippet)
+            </span>
+            <button class="copy-btn" data-copy-type="code">📋 複製</button>
+            <pre class="code-box">${escapeHtml(item.code)}</pre>
+          </div>
+        `;
+      }
+      
+      accItem.innerHTML = `
+        <div class="accordion-header">
+          <div class="accordion-title-group">
+            <span class="accordion-title">${item.version}</span>
+            <span class="accordion-subtitle">觀察提示詞的差異與優化迭代</span>
+          </div>
+          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="accordion-content">
+          <div class="evolution-grid">
+            ${columnsHtml}
+          </div>
+        </div>
+      `;
+      
+      const header = accItem.querySelector('.accordion-header');
+      header.addEventListener('click', () => {
+        const isActive = accItem.classList.contains('active');
+        acc.querySelectorAll('.accordion-item').forEach(other => other.classList.remove('active'));
+        if (!isActive) {
+          accItem.classList.add('active');
+        }
+      });
+      
+      bindCopyButtons(accItem);
+      acc.appendChild(accItem);
+    });
+    
+    evoSec.appendChild(acc);
+    container.appendChild(evoSec);
+  }
+  
+  // Section 3: Vibe Coding
+  if (hints.vibe && hints.vibe.length > 0) {
+    const vibeSec = document.createElement('div');
+    vibeSec.innerHTML = `
+      <h3 class="hints-section-title" style="margin-top: 1rem;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><polygon points="12 2 2 7 12 12 22 7 12 2z"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        3. Vibe Coding 實作提示 (AI-Assisted Coding Hints)
+      </h3>
+    `;
+    const acc = document.createElement('div');
+    acc.className = 'accordion';
+    
+    hints.vibe.forEach(item => {
+      const accItem = document.createElement('div');
+      accItem.className = 'accordion-item';
+      accItem.innerHTML = `
+        <div class="accordion-header">
+          <div class="accordion-title-group">
+            <span class="accordion-title">${item.title}</span>
+            <span class="accordion-subtitle">${item.question}</span>
+          </div>
+          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="accordion-content">
+          <div class="hint-blocks-container">
+            <div class="hint-block">
+              <span class="hint-block-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                參考提示詞
+              </span>
+              <button class="copy-btn" data-copy-type="prompt">📋 複製</button>
+              <pre class="prompt-box">${escapeHtml(item.prompt)}</pre>
+            </div>
+            <div class="hint-block">
+              <span class="hint-block-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                實作程式碼 (JavaScript / Test Prompt)
+              </span>
+              <button class="copy-btn" data-copy-type="code">📋 複製</button>
+              <pre class="code-box">${escapeHtml(item.code)}</pre>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      const header = accItem.querySelector('.accordion-header');
+      header.addEventListener('click', () => {
+        const isActive = accItem.classList.contains('active');
+        acc.querySelectorAll('.accordion-item').forEach(other => other.classList.remove('active'));
+        if (!isActive) {
+          accItem.classList.add('active');
+        }
+      });
+      
+      bindCopyButtons(accItem);
+      acc.appendChild(accItem);
+    });
+    
+    vibeSec.appendChild(acc);
+    container.appendChild(vibeSec);
+  }
+  
+  // Section 4: Full Code (VBA)
+  if (hints.fullCode) {
+    const fullSec = document.createElement('div');
+    fullSec.innerHTML = `
+      <h3 class="hints-section-title" style="margin-top: 1rem;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M16 18l6-6-6-6M8 6L2 12l6 6"/></svg>
+        4. 完整優化巨集程式碼對照 (Full VBA Code Reference)
+      </h3>
+      <div class="hint-block" style="margin-bottom: 2rem;">
+        <span class="hint-block-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          完整 VBA 模組程式碼
+        </span>
+        <button class="copy-btn" data-copy-type="code">📋 複製</button>
+        <pre class="code-box">${escapeHtml(hints.fullCode)}</pre>
+      </div>
+    `;
+    
+    bindCopyButtons(fullSec);
+    container.appendChild(fullSec);
+  }
+  
+  elements.hintsActiveContent.appendChild(container);
+}
+
+// Helper to escape HTML characters
+function escapeHtml(text) {
+  if (!text) return '';
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// Helper to bind copy-to-clipboard actions
+function bindCopyButtons(container) {
+  container.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Avoid triggering accordion toggle
+      
+      const targetPre = btn.nextElementSibling;
+      if (targetPre && (targetPre.tagName === 'PRE')) {
+        const textToCopy = targetPre.textContent;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          btn.innerHTML = '✅ 已複製！';
+          btn.classList.add('copied');
+          showToast('已複製內容至剪貼簿！');
+          setTimeout(() => {
+            btn.innerHTML = '📋 複製';
+            btn.classList.remove('copied');
+          }, 2000);
+        }).catch(err => {
+          console.error('複製失敗:', err);
+          showToast('複製失敗，請手動複製。', false);
+        });
+      }
+    });
+  });
 }
 
 // Render individual file downloads row or reference link row
@@ -2097,13 +2412,20 @@ function bindEvents() {
     const course = COURSE_CATALOG.find(c => c.id === currentCourseId);
     openAuthModal(course);
   });
+  elements.btnUnlockHints.addEventListener('click', () => {
+    const course = COURSE_CATALOG.find(c => c.id === currentCourseId);
+    openAuthModal(course);
+  });
   
-  // Prep & Content Tabs bindings
+  // Prep, Content & Hints Tabs bindings
   elements.tabPrep.addEventListener('click', () => {
     switchTab('prep', false);
   });
   elements.tabContent.addEventListener('click', () => {
     switchTab('content', false);
+  });
+  elements.tabHints.addEventListener('click', () => {
+    switchTab('hints', false);
   });
   
   // Slide Viewer Controls
