@@ -2305,3 +2305,99 @@ input[type="date"].form-control:disabled::-webkit-calendar-picker-indicator {
     grid-column: 1 / -1;
   }
 }
+
+/* --- HINTS CUSTOM GRID TABLE STYLING --- */
+.hints-table-container {
+  width: 100%;
+  overflow-x: auto;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+  transition: all 0.3s;
+}
+
+.hints-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.hints-table th {
+  background-color: var(--bg-subtle);
+  color: var(--text-dark);
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.hints-table td {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-medium);
+  vertical-align: middle;
+  line-height: 1.5;
+}
+
+.hints-table tr:last-child td {
+  border-bottom: none;
+}
+
+.hints-table tr:hover {
+  background-color: var(--bg-hover);
+}
+
+/* Badges inside cells */
+.hints-badge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  border: 1px solid var(--primary-light);
+  background: var(--primary-light-bg);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.hints-badge-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -2px rgba(29, 78, 216, 0.2);
+}
+
+.hints-badge-btn.sec-badge {
+  border-color: var(--text-light);
+  background: var(--bg-hover);
+  color: var(--text-medium);
+}
+
+.hints-badge-btn.sec-badge:hover {
+  background: var(--text-medium);
+  color: #ffffff;
+  border-color: var(--text-medium);
+}
+
+.hints-badge-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+@media (max-width: 768px) {
+  .hints-table th, .hints-table td {
+    padding: 0.75rem 1rem;
+  }
+}
+

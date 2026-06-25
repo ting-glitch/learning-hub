@@ -178,6 +178,12 @@ const elements = {
   hintsLockedBanner: document.getElementById('hints-locked-banner'),
   hintsActiveContent: document.getElementById('hints-active-content'),
   btnUnlockHints: document.getElementById('btn-unlock-hints'),
+  hintsModal: document.getElementById('hints-modal'),
+  hintsModalTitle: document.getElementById('hints-modal-title'),
+  hintsModalSubtitle: document.getElementById('hints-modal-subtitle'),
+  hintsModalContent: document.getElementById('hints-modal-content'),
+  btnCloseHintsModal: document.getElementById('btn-close-hints-modal'),
+  btnCopyHintsModal: document.getElementById('btn-copy-hints-modal'),
   courseLayout: document.querySelector('.course-layout')
 };
 
@@ -782,6 +788,8 @@ function renderMainContent() {
 }
 
 // Render Hints tab content dynamically
+let hintsModalCurrentText = ''; // Store current text for copy function
+
 function renderHintsContent() {
   elements.hintsActiveContent.innerHTML = '';
   
@@ -791,12 +799,10 @@ function renderHintsContent() {
   }
   
   const hints = activeCourseData.hints;
-  
-  // Create sections
   const container = document.createElement('div');
   container.className = 'hints-layout';
   
-  // Section 1: VBA Steps
+  // Section 1: VBA Step-by-Step Table
   if (hints.vba && hints.vba.length > 0) {
     const vbaSec = document.createElement('div');
     vbaSec.innerHTML = `
@@ -804,65 +810,43 @@ function renderHintsContent() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         1. VBA 實作分步提示 (VBA Step-by-Step Hints)
       </h3>
+      <div class="hints-table-container">
+        <table class="hints-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">題目 (Task)</th>
+              <th style="width: 45%;">說明 (Question)</th>
+              <th style="width: 15%;">參考提示詞</th>
+              <th style="width: 15%;">實作程式碼</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${hints.vba.map((item, idx) => `
+              <tr>
+                <td style="font-weight: 600; color: var(--text-dark);">${item.title}</td>
+                <td>${item.question}</td>
+                <td>
+                  <button class="hints-badge-btn" data-type="vba-prompt" data-idx="${idx}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    A${idx + 1} 提示詞
+                  </button>
+                </td>
+                <td>
+                  <button class="hints-badge-btn" data-type="vba-code" data-idx="${idx}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    B${idx + 1} 程式碼
+                  </button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
     `;
-    const acc = document.createElement('div');
-    acc.className = 'accordion';
-    
-    hints.vba.forEach(item => {
-      const accItem = document.createElement('div');
-      accItem.className = 'accordion-item';
-      accItem.innerHTML = `
-        <div class="accordion-header">
-          <div class="accordion-title-group">
-            <span class="accordion-title">${item.title}</span>
-            <span class="accordion-subtitle">${item.question}</span>
-          </div>
-          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-        <div class="accordion-content">
-          <div class="hint-blocks-container">
-            <div class="hint-block">
-              <span class="hint-block-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                參考提示詞
-              </span>
-              <button class="copy-btn" data-copy-type="prompt">📋 複製</button>
-              <pre class="prompt-box">${escapeHtml(item.prompt)}</pre>
-            </div>
-            <div class="hint-block">
-              <span class="hint-block-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                實作程式碼 (VBA)
-              </span>
-              <button class="copy-btn" data-copy-type="code">📋 複製</button>
-              <pre class="code-box">${escapeHtml(item.code)}</pre>
-            </div>
-          </div>
-        </div>
-      `;
-      
-      // Bind accordion toggle
-      const header = accItem.querySelector('.accordion-header');
-      header.addEventListener('click', () => {
-        const isActive = accItem.classList.contains('active');
-        // Close other items
-        acc.querySelectorAll('.accordion-item').forEach(other => other.classList.remove('active'));
-        if (!isActive) {
-          accItem.classList.add('active');
-        }
-      });
-      
-      // Bind copy buttons
-      bindCopyButtons(accItem);
-      
-      acc.appendChild(accItem);
-    });
-    
-    vbaSec.appendChild(acc);
     container.appendChild(vbaSec);
   }
   
-  // Section 2: Prompt Evolution
+  // Section 2: Prompt Evolution Table
   if (hints.evolution && hints.evolution.length > 0) {
     const evoSec = document.createElement('div');
     evoSec.innerHTML = `
@@ -870,79 +854,54 @@ function renderHintsContent() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         2. 提示詞演進與程式碼對照 (Prompt Evolution & Optimization)
       </h3>
+      <div class="hints-table-container">
+        <table class="hints-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">版本 (Version)</th>
+              <th style="width: 25%;">我們撰寫的 (Original)</th>
+              <th style="width: 25%;">AI 優化後的提示詞 (AI Optimized)</th>
+              <th style="width: 25%;">變更程式碼 (Code Changes)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${hints.evolution.map((item, idx) => `
+              <tr>
+                <td style="font-weight: 600; color: var(--text-dark);">${item.version}</td>
+                <td>
+                  ${item.ours ? `
+                    <button class="hints-badge-btn sec-badge" data-type="evo-ours" data-idx="${idx}">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      我們撰寫的
+                    </button>
+                  ` : '<span style="color: var(--text-light);">-</span>'}
+                </td>
+                <td>
+                  ${item.ai ? `
+                    <button class="hints-badge-btn" data-type="evo-ai" data-idx="${idx}">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      AI 優化提示
+                    </button>
+                  ` : '<span style="color: var(--text-light);">-</span>'}
+                </td>
+                <td>
+                  ${item.code ? `
+                    <button class="hints-badge-btn" data-type="evo-code" data-idx="${idx}">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                      對應程式碼
+                    </button>
+                  ` : '<span style="color: var(--text-light);">-</span>'}
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
     `;
-    const acc = document.createElement('div');
-    acc.className = 'accordion';
-    
-    hints.evolution.forEach(item => {
-      const accItem = document.createElement('div');
-      accItem.className = 'accordion-item';
-      
-      let columnsHtml = '';
-      if (item.ours) {
-        columnsHtml += `
-          <div class="hint-block evolution-card">
-            <div class="evolution-header">我們撰寫的提示詞 (原創)</div>
-            <button class="copy-btn" data-copy-type="prompt">📋 複製</button>
-            <pre class="prompt-box" style="border-left-color: var(--primary);">${escapeHtml(item.ours)}</pre>
-          </div>
-        `;
-      }
-      if (item.ai) {
-        columnsHtml += `
-          <div class="hint-block evolution-card" style="border-left-color: var(--primary-light);">
-            <div class="evolution-header">AI 優化後的提示詞</div>
-            <button class="copy-btn" data-copy-type="prompt">📋 複製</button>
-            <pre class="prompt-box" style="border-left-color: var(--primary-light);">${escapeHtml(item.ai)}</pre>
-          </div>
-        `;
-      }
-      if (item.code) {
-        columnsHtml += `
-          <div class="hint-block evolution-grid-full">
-            <span class="hint-block-label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-              對應程式碼 (Code Snippet)
-            </span>
-            <button class="copy-btn" data-copy-type="code">📋 複製</button>
-            <pre class="code-box">${escapeHtml(item.code)}</pre>
-          </div>
-        `;
-      }
-      
-      accItem.innerHTML = `
-        <div class="accordion-header">
-          <div class="accordion-title-group">
-            <span class="accordion-title">${item.version}</span>
-            <span class="accordion-subtitle">觀察提示詞的差異與優化迭代</span>
-          </div>
-          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-        <div class="accordion-content">
-          <div class="evolution-grid">
-            ${columnsHtml}
-          </div>
-        </div>
-      `;
-      
-      const header = accItem.querySelector('.accordion-header');
-      header.addEventListener('click', () => {
-        const isActive = accItem.classList.contains('active');
-        acc.querySelectorAll('.accordion-item').forEach(other => other.classList.remove('active'));
-        if (!isActive) {
-          accItem.classList.add('active');
-        }
-      });
-      
-      bindCopyButtons(accItem);
-      acc.appendChild(accItem);
-    });
-    
-    evoSec.appendChild(acc);
     container.appendChild(evoSec);
   }
   
-  // Section 3: Vibe Coding
+  // Section 3: Vibe Coding Table
   if (hints.vibe && hints.vibe.length > 0) {
     const vibeSec = document.createElement('div');
     vibeSec.innerHTML = `
@@ -950,57 +909,39 @@ function renderHintsContent() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><polygon points="12 2 2 7 12 12 22 7 12 2z"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
         3. Vibe Coding 實作提示 (AI-Assisted Coding Hints)
       </h3>
+      <div class="hints-table-container">
+        <table class="hints-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">題目 (Task)</th>
+              <th style="width: 45%;">說明 (Question)</th>
+              <th style="width: 15%;">參考提示詞</th>
+              <th style="width: 15%;">實作程式碼</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${hints.vibe.map((item, idx) => `
+              <tr>
+                <td style="font-weight: 600; color: var(--text-dark);">${item.title}</td>
+                <td>${item.question}</td>
+                <td>
+                  <button class="hints-badge-btn" data-type="vibe-prompt" data-idx="${idx}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    C${idx + 1} 提示詞
+                  </button>
+                </td>
+                <td>
+                  <button class="hints-badge-btn" data-type="vibe-code" data-idx="${idx}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    D${idx + 1} 程式碼
+                  </button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
     `;
-    const acc = document.createElement('div');
-    acc.className = 'accordion';
-    
-    hints.vibe.forEach(item => {
-      const accItem = document.createElement('div');
-      accItem.className = 'accordion-item';
-      accItem.innerHTML = `
-        <div class="accordion-header">
-          <div class="accordion-title-group">
-            <span class="accordion-title">${item.title}</span>
-            <span class="accordion-subtitle">${item.question}</span>
-          </div>
-          <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-        <div class="accordion-content">
-          <div class="hint-blocks-container">
-            <div class="hint-block">
-              <span class="hint-block-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                參考提示詞
-              </span>
-              <button class="copy-btn" data-copy-type="prompt">📋 複製</button>
-              <pre class="prompt-box">${escapeHtml(item.prompt)}</pre>
-            </div>
-            <div class="hint-block">
-              <span class="hint-block-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                實作程式碼 (JavaScript / Test Prompt)
-              </span>
-              <button class="copy-btn" data-copy-type="code">📋 複製</button>
-              <pre class="code-box">${escapeHtml(item.code)}</pre>
-            </div>
-          </div>
-        </div>
-      `;
-      
-      const header = accItem.querySelector('.accordion-header');
-      header.addEventListener('click', () => {
-        const isActive = accItem.classList.contains('active');
-        acc.querySelectorAll('.accordion-item').forEach(other => other.classList.remove('active'));
-        if (!isActive) {
-          accItem.classList.add('active');
-        }
-      });
-      
-      bindCopyButtons(accItem);
-      acc.appendChild(accItem);
-    });
-    
-    vibeSec.appendChild(acc);
     container.appendChild(vibeSec);
   }
   
@@ -1012,24 +953,101 @@ function renderHintsContent() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M16 18l6-6-6-6M8 6L2 12l6 6"/></svg>
         4. 完整優化巨集程式碼對照 (Full VBA Code Reference)
       </h3>
-      <div class="hint-block" style="margin-bottom: 2rem;">
-        <span class="hint-block-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-          完整 VBA 模組程式碼
-        </span>
-        <button class="copy-btn" data-copy-type="code">📋 複製</button>
-        <pre class="code-box">${escapeHtml(hints.fullCode)}</pre>
+      <div class="card" style="padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+        <div>
+          <h4 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--text-dark);">完整 VBA 模組程式碼</h4>
+          <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-light);">包含完整宣告、各子步驟程序以及樞紐更新之巨集代碼</p>
+        </div>
+        <button class="hints-badge-btn" id="btn-show-full-code" style="padding: 0.5rem 1rem; border-radius: 8px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          <span>查看完整程式碼</span>
+        </button>
       </div>
     `;
-    
-    bindCopyButtons(fullSec);
     container.appendChild(fullSec);
   }
   
   elements.hintsActiveContent.appendChild(container);
+  
+  // Bind click events on buttons to open Modal
+  container.querySelectorAll('.hints-badge-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.getAttribute('data-type');
+      const idx = parseInt(btn.getAttribute('data-idx'));
+      
+      let title = '';
+      let subtitle = '';
+      let content = '';
+      
+      if (type === 'vba-prompt') {
+        const item = hints.vba[idx];
+        title = `${item.title} - 參考提示詞`;
+        subtitle = `Excel 單元格參照：A${idx + 1}`;
+        content = item.prompt;
+      } else if (type === 'vba-code') {
+        const item = hints.vba[idx];
+        title = `${item.title} - 實作程式碼 (VBA)`;
+        subtitle = `Excel 單元格參照：B${idx + 1}`;
+        content = item.code;
+      } else if (type === 'vibe-prompt') {
+        const item = hints.vibe[idx];
+        title = `${item.title} - 參考提示詞`;
+        subtitle = `Excel 單元格參照：C${idx + 1}`;
+        content = item.prompt;
+      } else if (type === 'vibe-code') {
+        const item = hints.vibe[idx];
+        title = `${item.title} - 實作程式碼`;
+        subtitle = `Excel 單元格參照：D${idx + 1}`;
+        content = item.code;
+      } else if (type === 'evo-ours') {
+        const item = hints.evolution[idx];
+        title = `${item.version} - 我們撰寫的提示詞`;
+        subtitle = `原創提示詞演進對照`;
+        content = item.ours;
+      } else if (type === 'evo-ai') {
+        const item = hints.evolution[idx];
+        title = `${item.version} - AI 優化後的提示詞`;
+        subtitle = `AI 優化對比與最佳化`;
+        content = item.ai;
+      } else if (type === 'evo-code') {
+        const item = hints.evolution[idx];
+        title = `${item.version} - 對應程式碼`;
+        subtitle = `程式碼變更與新增機制對照`;
+        content = item.code;
+      }
+      
+      openHintsModal(title, subtitle, content);
+    });
+  });
+  
+  // Bind click for the full code button
+  const btnShowFull = container.querySelector('#btn-show-full-code');
+  if (btnShowFull) {
+    btnShowFull.addEventListener('click', () => {
+      openHintsModal(
+        '完整優化巨集程式碼對照',
+        '包含完整 Excel VBA 信用卡帳單自動化整合模組代碼',
+        hints.fullCode
+      );
+    });
+  }
 }
 
-// Helper to escape HTML characters
+// Open the custom Pop-up Modal Lightbox
+function openHintsModal(title, subtitle, content) {
+  elements.hintsModalTitle.textContent = title;
+  elements.hintsModalSubtitle.textContent = subtitle;
+  elements.hintsModalContent.textContent = content;
+  hintsModalCurrentText = content;
+  
+  // Reset copy button styling
+  elements.btnCopyHintsModal.innerHTML = '<span>📋 複製內容</span>';
+  elements.btnCopyHintsModal.classList.remove('copied');
+  
+  elements.hintsModal.classList.add('active');
+}
+
+// Helper to escape HTML characters (kept for potential other usages)
 function escapeHtml(text) {
   if (!text) return '';
   return text
@@ -1038,32 +1056,6 @@ function escapeHtml(text) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
-}
-
-// Helper to bind copy-to-clipboard actions
-function bindCopyButtons(container) {
-  container.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation(); // Avoid triggering accordion toggle
-      
-      const targetPre = btn.nextElementSibling;
-      if (targetPre && (targetPre.tagName === 'PRE')) {
-        const textToCopy = targetPre.textContent;
-        navigator.clipboard.writeText(textToCopy).then(() => {
-          btn.innerHTML = '✅ 已複製！';
-          btn.classList.add('copied');
-          showToast('已複製內容至剪貼簿！');
-          setTimeout(() => {
-            btn.innerHTML = '📋 複製';
-            btn.classList.remove('copied');
-          }, 2000);
-        }).catch(err => {
-          console.error('複製失敗:', err);
-          showToast('複製失敗，請手動複製。', false);
-        });
-      }
-    });
-  });
 }
 
 // Render individual file downloads row or reference link row
@@ -2427,6 +2419,38 @@ function bindEvents() {
   elements.tabHints.addEventListener('click', () => {
     switchTab('hints', false);
   });
+  
+  // Hints Pop-up Modal bindings
+  if (elements.btnCloseHintsModal) {
+    elements.btnCloseHintsModal.addEventListener('click', () => {
+      elements.hintsModal.classList.remove('active');
+    });
+  }
+  if (elements.hintsModal) {
+    elements.hintsModal.addEventListener('click', (e) => {
+      if (e.target === elements.hintsModal) {
+        elements.hintsModal.classList.remove('active');
+      }
+    });
+  }
+  if (elements.btnCopyHintsModal) {
+    elements.btnCopyHintsModal.addEventListener('click', () => {
+      if (hintsModalCurrentText) {
+        navigator.clipboard.writeText(hintsModalCurrentText).then(() => {
+          elements.btnCopyHintsModal.innerHTML = '<span>✅ 已複製！</span>';
+          elements.btnCopyHintsModal.classList.add('copied');
+          showToast('已複製內容至剪貼簿！');
+          setTimeout(() => {
+            elements.btnCopyHintsModal.innerHTML = '<span>📋 複製內容</span>';
+            elements.btnCopyHintsModal.classList.remove('copied');
+          }, 2000);
+        }).catch(err => {
+          console.error('複製失敗:', err);
+          showToast('複製失敗，請手動複製。', false);
+        });
+      }
+    });
+  }
   
   // Slide Viewer Controls
   elements.btnSlidePrev.addEventListener('click', () => {

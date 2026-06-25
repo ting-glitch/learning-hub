@@ -637,6 +637,27 @@
       </div>
     </div>
   </div>
+  <!-- Hints Pop-up Modal Lightbox -->
+  <div class="modal-backdrop" id="hints-modal">
+    <div class="modal-card" style="max-width: 800px; width: 90%; max-height: 85vh; display: flex; flex-direction: column;">
+      <button class="modal-close" id="btn-close-hints-modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <h3 class="modal-title" id="hints-modal-title" style="margin-bottom: 0.25rem;">實作提示</h3>
+      <p class="modal-subtitle" id="hints-modal-subtitle" style="margin-bottom: 1rem; color: var(--text-light); font-size: 0.85rem;"></p>
+      
+      <div class="modal-body" style="position: relative; flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 0.5rem; padding: 0.5rem 0;">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+          <button id="btn-copy-hints-modal" class="copy-btn" style="position: static; padding: 0.4rem 0.8rem; display: flex; align-items: center; gap: 0.25rem;">
+            <span>📋 複製內容</span>
+          </button>
+        </div>
+        <div style="flex: 1; overflow-y: auto; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 1rem;">
+          <pre id="hints-modal-content" class="code-box" style="margin: 0; border: none; background: transparent; padding: 0; white-space: pre-wrap; word-break: break-all; color: #0f172a;"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Success Notification Toast -->
   <div class="toast" id="toast-notification">
