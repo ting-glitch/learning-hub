@@ -960,117 +960,118 @@ function renderHintsContent() {
   // Section 2.5: VBA Save Methods (VBA儲存方式)
   if (activeCourseData.courseId === 'course-0vvk06') {
     const saveMethodsSec = document.createElement('div');
-    saveMethodsSec.className = 'vba-save-methods-section';
     saveMethodsSec.innerHTML = `
       <h3 class="hints-section-title" style="margin-top: 1rem;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
         VBA 儲存方式
       </h3>
       
-      <div class="tabs-container" style="margin-bottom: 1rem;">
-        <button class="tab-btn active" data-target="method-xlsm">
-          另存 XLSM 檔
-        </button>
-        <button class="tab-btn" data-target="method-button">
-          插入按鈕套用巨集
-        </button>
-        <button class="tab-btn" data-target="method-shortcut">
-          快捷鍵自訂工具
-        </button>
-      </div>
-      
-      <div class="save-method-content active" id="method-xlsm">
-        <div class="save-method-info">
-          <div class="save-method-title">
-            <span class="save-method-step-num">1</span>
-            另存為啟用巨集的活頁簿 (.xlsm)
+      <div class="vba-save-methods-section">
+        <div class="tabs-container" style="margin-bottom: 1rem;">
+          <button class="tab-btn active" data-target="method-xlsm">
+            另存 XLSM 檔
+          </button>
+          <button class="tab-btn" data-target="method-button">
+            插入按鈕套用巨集
+          </button>
+          <button class="tab-btn" data-target="method-shortcut">
+            快捷鍵自訂工具
+          </button>
+        </div>
+        
+        <div class="save-method-content active" id="method-xlsm">
+          <div class="save-method-info">
+            <div class="save-method-title">
+              <span class="save-method-step-num">1</span>
+              另存為啟用巨集的活頁簿 (.xlsm)
+            </div>
+            <p class="save-method-desc">
+              Excel 預設的 <code>.xlsx</code> 檔案不支援儲存 VBA 巨集程式碼。若直接存檔，您辛辛苦苦寫好的巨集程式碼將會在關閉檔案時全部遺失！因此在編寫完巨集後，必須將檔案另存為 <code>.xlsm</code> 格式。
+            </p>
+            <div class="save-method-steps">
+              <div class="save-method-step-item">
+                <strong>步驟 1:</strong>
+                <div>點擊 Excel 左上角的 <span>「檔案」 (File)</span> &rarr; <span>「另存新檔」 (Save As)</span>。</div>
+              </div>
+              <div class="save-method-step-item">
+                <strong>步驟 2:</strong>
+                <div>在「存檔類型」 (Save as type) 下拉選單中，選取 <span>「Excel 啟用巨集的活頁簿 (*.xlsm)」</span>。</div>
+              </div>
+              <div class="save-method-step-item">
+                <strong>步驟 3:</strong>
+                <div>點擊 <span>「儲存」 (Save)</span> 即可安全保留您的 VBA 巨集與程式碼。</div>
+              </div>
+            </div>
           </div>
-          <p class="save-method-desc">
-            Excel 預設的 <code>.xlsx</code> 檔案不支援儲存 VBA 巨集程式碼。若直接存檔，您辛辛苦苦寫好的巨集程式碼將會在關閉檔案時全部遺失！因此在編寫完巨集後，必須將檔案另存為 <code>.xlsm</code> 格式。
-          </p>
-          <div class="save-method-steps">
-            <div class="save-method-step-item">
-              <strong>步驟 1:</strong>
-              <div>點擊 Excel 左上角的 <span>「檔案」 (File)</span> &rarr; <span>「另存新檔」 (Save As)</span>。</div>
-            </div>
-            <div class="save-method-step-item">
-              <strong>步驟 2:</strong>
-              <div>在「存檔類型」 (Save as type) 下拉選單中，選取 <span>「Excel 啟用巨集的活頁簿 (*.xlsm)」</span>。</div>
-            </div>
-            <div class="save-method-step-item">
-              <strong>步驟 3:</strong>
-              <div>點擊 <span>「儲存」 (Save)</span> 即可安全保留您的 VBA 巨集與程式碼。</div>
-            </div>
+          <div class="save-method-img-box">
+            <img src="courses/course-0vvk06/prep/downloads/save_as_xlsm_guide.png" alt="另存 XLSM 檔導引圖">
           </div>
         </div>
-        <div class="save-method-img-box">
-          <img src="courses/course-0vvk06/prep/downloads/save_as_xlsm_guide.png" alt="另存 XLSM 檔導引圖">
-        </div>
-      </div>
 
-      <div class="save-method-content" id="method-button" style="display: none;">
-        <div class="save-method-info">
-          <div class="save-method-title">
-            <span class="save-method-step-num">2</span>
-            插入表單按鈕，點擊即執行巨集
+        <div class="save-method-content" id="method-button" style="display: none;">
+          <div class="save-method-info">
+            <div class="save-method-title">
+              <span class="save-method-step-num">2</span>
+              插入表單按鈕，點擊即執行巨集
+            </div>
+            <p class="save-method-desc">
+              在 Excel 工作表上建立一個實體按鈕，讓使用者不需要開啟編輯器或巨集清單，點選按鈕便能自動執行帳單匯入與儀表板更新，是最直覺便利的操作方式！
+            </p>
+            <div class="save-method-steps">
+              <div class="save-method-step-item">
+                <strong>步驟 1:</strong>
+                <div>確認功能區已啟用 <span>「開發人員」 (Developer)</span> 索引標籤（若無，可在功能區按右鍵自訂功能區勾選）。</div>
+              </div>
+              <div class="save-method-step-item">
+                <strong>步驟 2:</strong>
+                <div>點擊 <span>「開發人員」</span> &rarr; <span>「插入」 (Insert)</span> &rarr; 點選表單控制項的第一個 <span>「按鈕 (表單控制項)」</span>。</div>
+              </div>
+              <div class="save-method-step-item">
+                <strong>步驟 3:</strong>
+                <div>在工作表空白處按住左鍵拖曳出按鈕大小。放開後會彈出「指定巨集」視窗，點選 <span>「FullAutomatedBillingSystem」</span> 並按確定。</div>
+              </div>
+              <div class="save-method-step-item">
+                <strong>步驟 4:</strong>
+                <div>在按鈕上按右鍵點擊 <span>「編輯文字」 (Edit Text)</span>，修改按鈕顯示名稱（如「一鍵自動匯入明細與更新圖表」）。</div>
+              </div>
+            </div>
           </div>
-          <p class="save-method-desc">
-            在 Excel 工作表上建立一個實體按鈕，讓使用者不需要開啟編輯器或巨集清單，點選按鈕便能自動執行帳單匯入與儀表板更新，是最直覺便利的操作方式！
-          </p>
-          <div class="save-method-steps">
-            <div class="save-method-step-item">
-              <strong>步驟 1:</strong>
-              <div>確認功能區已啟用 <span>「開發人員」 (Developer)</span> 索引標籤（若無，可在功能區按右鍵自訂功能區勾選）。</div>
-            </div>
-            <div class="save-method-step-item">
-              <strong>步驟 2:</strong>
-              <div>點擊 <span>「開發人員」</span> &rarr; <span>「插入」 (Insert)</span> &rarr; 點選表單控制項的第一個 <span>「按鈕 (表單控制項)」</span>。</div>
-            </div>
-            <div class="save-method-step-item">
-              <strong>步驟 3:</strong>
-              <div>在工作表空白處按住左鍵拖曳出按鈕大小。放開後會彈出「指定巨集」視窗，點選 <span>「FullAutomatedBillingSystem」</span> 並按確定。</div>
-            </div>
-            <div class="save-method-step-item">
-              <strong>步驟 4:</strong>
-              <div>在按鈕上按右鍵點擊 <span>「編輯文字」 (Edit Text)</span>，修改按鈕顯示名稱（如「一鍵自動匯入明細與更新圖表」）。</div>
-            </div>
+          <div class="save-method-img-box">
+            <img src="courses/course-0vvk06/prep/downloads/insert_macro_button_guide.png" alt="插入按鈕套用巨集導引圖">
           </div>
         </div>
-        <div class="save-method-img-box">
-          <img src="courses/course-0vvk06/prep/downloads/insert_macro_button_guide.png" alt="插入按鈕套用巨集導引圖">
-        </div>
-      </div>
 
-      <div class="save-method-content" id="method-shortcut" style="display: none;">
-        <div class="save-method-info">
-          <div class="save-method-title">
-            <span class="save-method-step-num">3</span>
-            自訂功能區巨集按鈕 (快捷鍵自訂工具)
+        <div class="save-method-content" id="method-shortcut" style="display: none;">
+          <div class="save-method-info">
+            <div class="save-method-title">
+              <span class="save-method-step-num">3</span>
+              自訂功能區巨集按鈕 (快捷鍵自訂工具)
+            </div>
+            <p class="save-method-desc">
+              除了在工作表上繪製按鈕外，您也可以直接在 Excel 上方的「功能區」 (Ribbon) 中，新增一個專屬的巨集執行按鈕。不論切換到哪一個工作表，隨時都能一鍵快速啟動自動化巨集！
+            </p>
+            <div class="save-method-steps">
+              <div class="save-method-step-item">
+                <strong>步驟 1:</strong>
+                <div>在 Excel 上方功能區的任意空白處點選滑鼠右鍵，選擇 <span>「自訂功能區...」 (Customize the Ribbon)</span>。</div>
+              </div>
+              <div class="save-method-step-item">
+                <strong>步驟 2:</strong>
+                <div>在右側清單中選取要放置按鈕的索引標籤（例如「常用」），點擊下方 <span>「新增群組」 (New Group)</span> 建立一個自訂群組。</div>
+              </div>
+              <div class="save-method-step-item">
+                <strong>步驟 3:</strong>
+                <div>將左側選單的「選取命令」下拉清單切換為 <span>「巨集」 (Macros)</span>，並選取您要執行的巨集（如 <span>「FullAutomatedBillingSystem」</span>）。</div>
+              </div>
+              <div class="save-method-step-item">
+                <strong>步驟 4:</strong>
+                <div>選中右側剛剛建立的自訂群組，點選中間的 <span>「新增 >>」 (Add)</span> 將該巨集加入群組底下。接著可以點擊 <span>「重新命名...」</span> 設定按鈕的圖示與顯示名稱。</div>
+              </div>
+            </div>
           </div>
-          <p class="save-method-desc">
-            除了在工作表上繪製按鈕外，您也可以直接在 Excel 上方的「功能區」 (Ribbon) 中，新增一個專屬的巨集執行按鈕。不論切換到哪一個工作表，隨時都能一鍵快速啟動自動化巨集！
-          </p>
-          <div class="save-method-steps">
-            <div class="save-method-step-item">
-              <strong>步驟 1:</strong>
-              <div>在 Excel 上方功能區的任意空白處點選滑鼠右鍵，選擇 <span>「自訂功能區...」 (Customize the Ribbon)</span>。</div>
-            </div>
-            <div class="save-method-step-item">
-              <strong>步驟 2:</strong>
-              <div>在右側清單中選取要放置按鈕的索引標籤（例如「常用」），點擊下方 <span>「新增群組」 (New Group)</span> 建立一個自訂群組。</div>
-            </div>
-            <div class="save-method-step-item">
-              <strong>步驟 3:</strong>
-              <div>將左側選單的「選取命令」下拉清單切換為 <span>「巨集」 (Macros)</span>，並選取您要執行的巨集（如 <span>「FullAutomatedBillingSystem」</span>）。</div>
-            </div>
-            <div class="save-method-step-item">
-              <strong>步驟 4:</strong>
-              <div>選中右側剛剛建立的自訂群組，點選中間的 <span>「新增 >>」 (Add)</span> 將該巨集加入群組底下。接著可以點擊 <span>「重新命名...」</span> 設定按鈕的圖示與顯示名稱。</div>
-            </div>
+          <div class="save-method-img-box">
+            <img src="courses/course-0vvk06/prep/downloads/shortcut_macro_guide.png" alt="自訂功能區巨集按鈕導引圖">
           </div>
-        </div>
-        <div class="save-method-img-box">
-          <img src="courses/course-0vvk06/prep/downloads/shortcut_macro_guide.png" alt="自訂功能區巨集按鈕導引圖">
         </div>
       </div>
     `;
