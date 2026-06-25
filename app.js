@@ -817,7 +817,7 @@ function renderHintsContent() {
               <th style="width: 25%;">題目</th>
               <th style="width: 45%;">說明</th>
               <th style="width: 15%;">參考提示詞</th>
-              <th style="width: 15%;">實作程式碼</th>
+              <th style="width: 15%;">程式碼</th>
             </tr>
           </thead>
           <tbody>
@@ -859,9 +859,9 @@ function renderHintsContent() {
           <thead>
             <tr>
               <th style="width: 25%;">對話過程</th>
-              <th style="width: 25%;">我們撰寫的</th>
-              <th style="width: 25%;">AI 優化後的提示詞</th>
-              <th style="width: 25%;">程式碼</th>
+              <th style="width: 45%;">我們撰寫的</th>
+              <th style="width: 15%;">AI 提示詞</th>
+              <th style="width: 15%;">程式碼</th>
             </tr>
           </thead>
           <tbody>
@@ -880,7 +880,7 @@ function renderHintsContent() {
                   ${item.ai ? `
                     <button class="hints-badge-btn" data-type="evo-ai" data-idx="${idx}">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                      AI 優化提示
+                      AI 提示詞
                     </button>
                   ` : '<span style="color: var(--text-light);">-</span>'}
                 </td>
@@ -916,7 +916,7 @@ function renderHintsContent() {
               <th style="width: 25%;">題目</th>
               <th style="width: 45%;">說明</th>
               <th style="width: 15%;">參考提示詞</th>
-              <th style="width: 15%;">實作程式碼</th>
+              <th style="width: 15%;">程式碼</th>
             </tr>
           </thead>
           <tbody>
@@ -985,7 +985,7 @@ function renderHintsContent() {
         content = item.ours;
       } else if (type === 'evo-ai') {
         const item = hints.evolution[idx];
-        title = `${item.version} - AI 優化後的提示詞`;
+        title = `${item.version} - AI 提示詞`;
         subtitle = `AI 優化對比與最佳化`;
         content = item.ai;
       } else if (type === 'evo-code') {
