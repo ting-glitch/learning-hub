@@ -1192,10 +1192,10 @@ function renderHintsContent() {
         <table class="hints-table comparison-table" style="table-layout: fixed; width: 100%;">
           <thead>
             <tr>
-              <th style="width: 15%; font-weight: 700; background-color: var(--bg-subtle);">比較維度</th>
-              <th style="width: 28%; font-weight: 700;">Run.bat (批次執行檔)</th>
-              <th style="width: 28%; font-weight: 700;">Silent.vbs (靜默腳本檔)</th>
-              <th style="width: 29%; font-weight: 700;">GitHub (版本控制與託管)</th>
+              <th style="width: 15%; background-color: var(--bg-subtle);"></th>
+              <th style="width: 28%; font-weight: 700;">Run.bat (一鍵執行)</th>
+              <th style="width: 28%; font-weight: 700;">Silent.vbs (背景執行)</th>
+              <th style="width: 29%; font-weight: 700;">GitHub (雲端代管)</th>
             </tr>
           </thead>
           <tbody>
@@ -1203,7 +1203,7 @@ function renderHintsContent() {
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">儲存環境</td>
               <td>本地端 (與專案目錄同級)</td>
               <td>本地端 (做為批次檔之背景啟動器)</td>
-              <td>雲端 Git 遠端倉庫</td>
+              <td>雲端儲存</td>
             </tr>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">優勢</td>
@@ -1221,7 +1221,7 @@ function renderHintsContent() {
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>雲端備份防損毀，具備完整歷史追蹤 (Git History)</li>
+                  <li>雲端備份防損毀，具備完整歷史追蹤</li>
                   <li>支援跨裝置同步與多分支協作</li>
                 </ul>
               </td>
@@ -1252,19 +1252,19 @@ function renderHintsContent() {
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
                   <li>明文腳本易於代碼安全審查</li>
-                  <li>須防範防毒軟體誤報與指令惡意篡改</li>
+                  <li>執行前應確認指令來源，防範未知批次檔</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
                   <li>背景執行隱蔽性高，異常時須仰賴日誌追蹤</li>
-                  <li>須嚴格管控寫入權限，防止指令惡意注入</li>
+                  <li>建議資安檢查與管控，防止惡意指令</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
                   <li>支援 Private Repo 權限控管</li>
-                  <li><strong style="color: var(--danger);">⚠️ 嚴禁將 API 金鑰與敏感資訊直接寫入並提交</strong></li>
+                  <li><strong style="color: var(--danger);">⚠️ 嚴禁將 API 金鑰與敏感資訊寫入</strong></li>
                   <li>須搭配環境變數 (<code>.env</code>) 管理防範外洩</li>
                 </ul>
               </td>

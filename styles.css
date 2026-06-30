@@ -2554,9 +2554,9 @@ input[type="date"].form-control:disabled::-webkit-calendar-picker-indicator {
     background-color: transparent !important;
   }
   
-  .hints-table.comparison-table td:nth-of-type(2)::before { content: "Run.bat (批次執行檔)"; }
-  .hints-table.comparison-table td:nth-of-type(3)::before { content: "Silent.vbs (靜默腳本檔)"; }
-  .hints-table.comparison-table td:nth-of-type(4)::before { content: "GitHub (版本控制與託管)"; }
+  .hints-table.comparison-table td:nth-of-type(2)::before { content: "Run.bat (一鍵執行)"; }
+  .hints-table.comparison-table td:nth-of-type(3)::before { content: "Silent.vbs (背景執行)"; }
+  .hints-table.comparison-table td:nth-of-type(4)::before { content: "GitHub (雲端代管)"; }
 }
 
 /* VBA Save Methods Section */
