@@ -1179,9 +1179,104 @@ function renderHintsContent() {
           </tbody>
         </table>
       </div>
-      <div style="margin-top: 1rem; padding: 0.75rem 1rem; background-color: var(--primary-light); border-left: 3px solid var(--primary); border-radius: var(--radius-sm); font-size: 0.825rem; color: var(--text-medium); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.5;">
+      <div style="margin-top: 1rem; padding: 0.75rem 1rem; background-color: var(--primary-light); border-left: 3px solid var(--primary); border-radius: var(--radius-sm); font-size: 0.825rem; color: var(--text-medium); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.5; margin-bottom: 2rem;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 15px; height: 15px; margin-top: 0.1rem; flex-shrink: 0; color: var(--primary);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
         <span><strong>補充說明：</strong>當 OCR 與 LLM API 串接時，可實現更複雜的結構化資料提取、語意分類及雜訊欄位自動過濾等功能，進而產生相應的 API 費用。</span>
+      </div>
+
+      <h3 class="hints-section-title" style="margin-top: 2rem;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        Vibe Coding儲存方式
+      </h3>
+      <div class="hints-table-container">
+        <table class="hints-table" style="table-layout: fixed; width: 100%;">
+          <thead>
+            <tr>
+              <th style="width: 15%; font-weight: 700; background-color: var(--bg-subtle);">比較維度</th>
+              <th style="width: 28%; font-weight: 700;">Run.bat (批次執行檔)</th>
+              <th style="width: 28%; font-weight: 700;">Silent.vbs (靜默腳本檔)</th>
+              <th style="width: 29%; font-weight: 700;">GitHub (版本控制與託管)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">儲存環境</td>
+              <td>本地磁碟 (通常與專案程式碼放在同一目錄下)</td>
+              <td>本地磁碟 (通常作為輔助啟動器或背景排程腳本)</td>
+              <td>雲端 Git 託管倉庫 (如 GitHub 遠端儲存庫)</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">優勢</td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>一鍵雙擊快速啟動</li>
+                  <li>編寫與修改極為簡單直覺</li>
+                  <li>執行時能直觀檢視控制台輸出日誌</li>
+                </ul>
+              </td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>背景靜默執行，無黑色 CMD 視窗彈出</li>
+                  <li>完全不打擾或干擾使用者當前畫面操作</li>
+                  <li>與 Windows 工作排程器 (Task Scheduler) 結合體驗最佳</li>
+                </ul>
+              </td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>安全雲端備份，防範本機硬碟故障</li>
+                  <li>擁有完整歷史紀錄與版本追蹤、分支管理</li>
+                  <li>支援多人團隊協作、跨裝置同步與發布</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">適用情境</td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>開發調試階段，需要隨時觀測執行 Log</li>
+                  <li>單機快速手動測試與臨時啟動</li>
+                </ul>
+              </td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>例行性自動化工作，需每日背景定時排程執行</li>
+                  <li>給非技術人員執行，希望介面乾淨無干擾</li>
+                </ul>
+              </td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>程式碼長久備份與協作開發</li>
+                  <li>需跨不同環境部署 (如測試機、正式機)</li>
+                  <li>建立自動化持續整合與部署 (CI/CD)</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">資訊安全</td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>腳本為明文，易於審查安全性</li>
+                  <li>須防範腳本被惡意篡改指令</li>
+                  <li>部分防毒軟體可能將未知批次檔誤判為風險</li>
+                </ul>
+              </td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>腳本為明文，但因無視窗背景執行，較不易察覺</li>
+                  <li>若執行異常只能從日誌追蹤，隱蔽性較高</li>
+                  <li>需嚴格限制寫入權限，防止被植入惡意指令</li>
+                </ul>
+              </td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>支援私有倉庫 (Private Repo) 存取保護</li>
+                  <li><strong style="color: var(--danger);">⚠️ 絕不可將 API 金鑰或密碼等敏感資料直接寫入並提交</strong></li>
+                  <li>應搭配 <code>.env</code> 檔與環境變數機制防範外洩</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     `;
     container.appendChild(vibeSec);
