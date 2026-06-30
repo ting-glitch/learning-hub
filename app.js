@@ -872,7 +872,7 @@ function renderHintsContent() {
             <tr>
               <th style="width: 25%;">題目</th>
               <th style="width: 45%;">說明</th>
-              <th style="width: 15%;">參考提示詞</th>
+              <th style="width: 15%;">AI 提示詞</th>
               <th style="width: 15%;">程式碼</th>
             </tr>
           </thead>
@@ -1116,11 +1116,11 @@ function renderHintsContent() {
             <div class="material-info" style="display: flex; align-items: center; gap: 0.75rem;">
               <div class="file-icon-box ext-zip" style="flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; border-radius: var(--radius-sm); background-color: #f7a93b; color: #ffffff;">ZIP</div>
               <div class="material-details" style="display: flex; flex-direction: column;">
-                <span class="material-name" style="font-weight: 600; font-size: 0.85rem; color: var(--text-dark);">card billing project_v1.zip</span>
-                <span class="material-meta" style="font-size: 0.7rem; color: var(--text-light);">大小: 39.0 MB</span>
+                <span class="material-name" style="font-weight: 600; font-size: 0.85rem; color: var(--text-dark);">帳單明細_圖片.zip</span>
+                <span class="material-meta" style="font-size: 0.7rem; color: var(--text-light);">大小: 5.5 MB</span>
               </div>
             </div>
-            <a href="courses/course-0vvk06/prep/downloads/card billing project_v1.zip" class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem;" download>
+            <a href="courses/course-0vvk06/prep/downloads/帳單明細_圖片.zip" class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem;" download>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 12px; height: 12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               下載
             </a>
@@ -1130,11 +1130,11 @@ function renderHintsContent() {
             <div class="material-info" style="display: flex; align-items: center; gap: 0.75rem;">
               <div class="file-icon-box ext-zip" style="flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; border-radius: var(--radius-sm); background-color: #f7a93b; color: #ffffff;">ZIP</div>
               <div class="material-details" style="display: flex; flex-direction: column;">
-                <span class="material-name" style="font-weight: 600; font-size: 0.85rem; color: var(--text-dark);">帳單明細_圖片.zip</span>
-                <span class="material-meta" style="font-size: 0.7rem; color: var(--text-light);">大小: 5.5 MB</span>
+                <span class="material-name" style="font-weight: 600; font-size: 0.85rem; color: var(--text-dark);">card billing project_v1.zip</span>
+                <span class="material-meta" style="font-size: 0.7rem; color: var(--text-light);">大小: 39.0 MB</span>
               </div>
             </div>
-            <a href="courses/course-0vvk06/prep/downloads/帳單明細_圖片.zip" class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem;" download>
+            <a href="courses/course-0vvk06/prep/downloads/card billing project_v1.zip" class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem;" download>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 12px; height: 12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               下載
             </a>
@@ -1203,7 +1203,7 @@ function renderHintsContent() {
       
       if (type === 'vba-prompt') {
         const item = hints.vba[idx];
-        title = `${item.title} - 參考提示詞`;
+        title = `${item.title} - AI 提示詞`;
         subtitle = `Excel 單元格參照：A${idx + 1}`;
         content = item.prompt;
       } else if (type === 'vba-code') {
