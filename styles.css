@@ -2396,9 +2396,167 @@ input[type="date"].form-control:disabled::-webkit-calendar-picker-indicator {
 }
 
 @media (max-width: 768px) {
-  .hints-table th, .hints-table td {
-    padding: 0.75rem 1rem;
+  /* Disable table layout and convert elements to blocks */
+  .hints-table.vba-table, .hints-table.vba-table thead, .hints-table.vba-table tbody, .hints-table.vba-table th, .hints-table.vba-table td, .hints-table.vba-table tr,
+  .hints-table.vba-writing-table, .hints-table.vba-writing-table thead, .hints-table.vba-writing-table tbody, .hints-table.vba-writing-table th, .hints-table.vba-writing-table td, .hints-table.vba-writing-table tr,
+  .hints-table.vibe-table, .hints-table.vibe-table thead, .hints-table.vibe-table tbody, .hints-table.vibe-table th, .hints-table.vibe-table td, .hints-table.vibe-table tr,
+  .hints-table.comparison-table, .hints-table.comparison-table thead, .hints-table.comparison-table tbody, .hints-table.comparison-table th, .hints-table.comparison-table td, .hints-table.comparison-table tr {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box;
   }
+
+  /* Hide headers on mobile */
+  .hints-table.vba-table thead,
+  .hints-table.vba-writing-table thead,
+  .hints-table.vibe-table thead,
+  .hints-table.comparison-table thead {
+    display: none !important;
+  }
+
+  /* Style row containers as unified card blocks */
+  .hints-table.vba-table tr,
+  .hints-table.vba-writing-table tr,
+  .hints-table.vibe-table tr {
+    border-bottom: 2px solid var(--border-color);
+    padding: 1.25rem;
+    background: var(--card-bg);
+    display: flex !important;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  
+  .hints-table.vba-table tr:last-child,
+  .hints-table.vba-writing-table tr:last-child,
+  .hints-table.vibe-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .hints-table.vba-table tr:hover,
+  .hints-table.vba-writing-table tr:hover,
+  .hints-table.vibe-table tr:hover {
+    background-color: transparent;
+  }
+
+  /* Cells layout styling */
+  .hints-table.vba-table td,
+  .hints-table.vba-writing-table td,
+  .hints-table.vibe-table td {
+    padding: 0 !important;
+    border: none !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  /* Mobile prefix headers */
+  .hints-table.vba-table td::before,
+  .hints-table.vba-writing-table td::before,
+  .hints-table.vibe-table td::before {
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+  }
+
+  /* VBA Table cell contents mapping */
+  .hints-table.vba-table td:nth-of-type(1)::before { content: none; }
+  .hints-table.vba-table td:nth-of-type(1) {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--border-color) !important;
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 0.2rem;
+    width: 100%;
+  }
+  .hints-table.vba-table td:nth-of-type(2)::before { content: "說明"; }
+  .hints-table.vba-table td:nth-of-type(3)::before { content: "AI 提示詞"; }
+  .hints-table.vba-table td:nth-of-type(4)::before { content: "程式碼"; }
+
+  /* VBA Writing Table cell contents mapping */
+  .hints-table.vba-writing-table td:nth-of-type(1)::before { content: none; }
+  .hints-table.vba-writing-table td:nth-of-type(1) {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--border-color) !important;
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 0.2rem;
+    width: 100%;
+  }
+  .hints-table.vba-writing-table td:nth-of-type(2)::before { content: "我們撰寫的"; }
+  .hints-table.vba-writing-table td:nth-of-type(3)::before { content: "AI 提示詞"; }
+  .hints-table.vba-writing-table td:nth-of-type(4)::before { content: "程式碼"; }
+
+  /* Vibe Table cell contents mapping */
+  .hints-table.vibe-table td:nth-of-type(1)::before { content: none; }
+  .hints-table.vibe-table td:nth-of-type(1) {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--border-color) !important;
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 0.2rem;
+    width: 100%;
+  }
+  .hints-table.vibe-table td:nth-of-type(2)::before { content: "說明"; }
+  .hints-table.vibe-table td:nth-of-type(3)::before { content: "AI 提示詞"; }
+  .hints-table.vibe-table td:nth-of-type(4)::before { content: "Agy 提示詞"; }
+
+  /* Comparison Table Layout */
+  .hints-table.comparison-table tr {
+    border-bottom: 4px solid var(--primary-light);
+    padding: 1.25rem;
+    background: var(--card-bg);
+    display: flex !important;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+  
+  .hints-table.comparison-table tr:last-child {
+    border-bottom: none;
+  }
+  
+  .hints-table.comparison-table tr:hover {
+    background-color: transparent;
+  }
+
+  .hints-table.comparison-table td {
+    padding: 0 !important;
+    border: none !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .hints-table.comparison-table td::before {
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--primary);
+    background-color: var(--primary-light);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+  }
+
+  .hints-table.comparison-table td:nth-of-type(1)::before { content: none; }
+  .hints-table.comparison-table td:nth-of-type(1) {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    border-bottom: 2px solid var(--primary) !important;
+    padding-bottom: 0.4rem !important;
+    margin-bottom: 0.1rem;
+    width: 100%;
+    background-color: transparent !important;
+  }
+  
+  .hints-table.comparison-table td:nth-of-type(2)::before { content: "Run.bat (批次執行檔)"; }
+  .hints-table.comparison-table td:nth-of-type(3)::before { content: "Silent.vbs (靜默腳本檔)"; }
+  .hints-table.comparison-table td:nth-of-type(4)::before { content: "GitHub (版本控制與託管)"; }
 }
 
 /* VBA Save Methods Section */

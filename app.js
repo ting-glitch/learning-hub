@@ -867,7 +867,7 @@ function renderHintsContent() {
       </div>
       ` : ''}
       <div class="hints-table-container">
-        <table class="hints-table">
+        <table class="hints-table vba-table">
           <thead>
             <tr>
               <th style="width: 25%;">題目</th>
@@ -911,7 +911,7 @@ function renderHintsContent() {
         VBA提示詞實際撰寫
       </h3>
       <div class="hints-table-container">
-        <table class="hints-table">
+        <table class="hints-table vba-writing-table">
           <thead>
             <tr>
               <th style="width: 25%;">對話過程</th>
@@ -1144,7 +1144,7 @@ function renderHintsContent() {
       </div>
       ` : ''}
       <div class="hints-table-container">
-        <table class="hints-table">
+        <table class="hints-table vibe-table">
           <thead>
             <tr>
               <th style="width: 25%;">題目</th>
@@ -1189,7 +1189,7 @@ function renderHintsContent() {
         Vibe Coding儲存方式
       </h3>
       <div class="hints-table-container">
-        <table class="hints-table" style="table-layout: fixed; width: 100%;">
+        <table class="hints-table comparison-table" style="table-layout: fixed; width: 100%;">
           <thead>
             <tr>
               <th style="width: 15%; font-weight: 700; background-color: var(--bg-subtle);">比較維度</th>
