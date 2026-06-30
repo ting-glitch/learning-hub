@@ -1201,8 +1201,8 @@ function renderHintsContent() {
           <tbody>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">儲存環境</td>
-              <td>本地端 (與專案目錄同級)</td>
-              <td>本地端 (做為批次檔之背景啟動器)</td>
+              <td>本地端儲存</td>
+              <td>本地端儲存</td>
               <td>雲端儲存</td>
             </tr>
             <tr>
@@ -1252,19 +1252,19 @@ function renderHintsContent() {
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
                   <li>明文腳本易於代碼安全審查</li>
-                  <li>執行前應確認指令來源，防範未知批次檔</li>
+                  <li>執行前應確認指令來源，防範未知異常檔</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>背景執行隱蔽性高，異常時須仰賴日誌追蹤</li>
+                  <li>背景執行隱蔽性高，異常仰賴日誌追蹤</li>
                   <li>建議資安檢查與管控，防止惡意指令</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
                   <li>支援 Private Repo 權限控管</li>
-                  <li><strong style="color: var(--danger);">⚠️ 嚴禁將 API 金鑰與敏感資訊寫入</strong></li>
+                  <li><strong style="color: var(--danger);">嚴禁將 API 金鑰與敏感資訊寫入</strong></li>
                   <li>須搭配環境變數 (<code>.env</code>) 管理防範外洩</li>
                 </ul>
               </td>
