@@ -1104,37 +1104,84 @@ function renderHintsContent() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
         Vibe Coding 實作
       </h3>
+      ${activeCourseData.courseId === 'course-0vvk06' ? `
+      <div class="card" style="padding: 1.25rem; margin-bottom: 1.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+        <div style="font-weight: 600; color: var(--text-dark); margin-bottom: 0.75rem; font-size: 0.95rem; display: flex; align-items: center; gap: 0.4rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; color: var(--primary);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          本階段實作所需檔案下載
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+          
+          <div class="material-item" style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; background-color: var(--card-bg);">
+            <div class="material-info" style="display: flex; align-items: center; gap: 0.75rem;">
+              <div class="file-icon-box ext-zip" style="flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; border-radius: var(--radius-sm); background-color: #f7a93b; color: #ffffff;">ZIP</div>
+              <div class="material-details" style="display: flex; flex-direction: column;">
+                <span class="material-name" style="font-weight: 600; font-size: 0.85rem; color: var(--text-dark);">card billing project_v1.zip</span>
+                <span class="material-meta" style="font-size: 0.7rem; color: var(--text-light);">大小: 39.0 MB</span>
+              </div>
+            </div>
+            <a href="courses/course-0vvk06/prep/downloads/card billing project_v1.zip" class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem;" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 12px; height: 12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              下載
+            </a>
+          </div>
+
+          <div class="material-item" style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; background-color: var(--card-bg);">
+            <div class="material-info" style="display: flex; align-items: center; gap: 0.75rem;">
+              <div class="file-icon-box ext-zip" style="flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; border-radius: var(--radius-sm); background-color: #f7a93b; color: #ffffff;">ZIP</div>
+              <div class="material-details" style="display: flex; flex-direction: column;">
+                <span class="material-name" style="font-weight: 600; font-size: 0.85rem; color: var(--text-dark);">帳單明細_圖片.zip</span>
+                <span class="material-meta" style="font-size: 0.7rem; color: var(--text-light);">大小: 5.5 MB</span>
+              </div>
+            </div>
+            <a href="courses/course-0vvk06/prep/downloads/帳單明細_圖片.zip" class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem;" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 12px; height: 12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              下載
+            </a>
+          </div>
+
+        </div>
+      </div>
+      ` : ''}
       <div class="hints-table-container">
         <table class="hints-table">
           <thead>
             <tr>
               <th style="width: 25%;">題目</th>
               <th style="width: 45%;">說明</th>
-              <th style="width: 15%;">參考提示詞</th>
-              <th style="width: 15%;">程式碼</th>
+              <th style="width: 15%;">AI 提示詞</th>
+              <th style="width: 15%;">Agy 提示詞</th>
             </tr>
           </thead>
           <tbody>
             ${hints.vibe.map((item, idx) => `
               <tr>
                 <td style="font-weight: 600; color: var(--text-dark);">${item.title}</td>
-                <td>${item.question}</td>
+                <td style="white-space: pre-wrap;">${item.question}</td>
                 <td>
-                  <button class="hints-badge-btn" data-type="vibe-prompt" data-idx="${idx}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                    C${idx + 1} 提示詞
-                  </button>
+                  ${item.prompt && item.prompt.trim() !== '' && item.prompt.trim() !== '-' ? `
+                    <button class="hints-badge-btn" data-type="vibe-prompt" data-idx="${idx}">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      C${idx + 1}提示詞
+                    </button>
+                  ` : `<span style="color: var(--text-muted); font-size: 0.9rem;">-</span>`}
                 </td>
                 <td>
-                  <button class="hints-badge-btn" data-type="vibe-code" data-idx="${idx}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                    D${idx + 1} 程式碼
-                  </button>
+                  ${item.code && item.code.trim() !== '' && item.code.trim() !== '-' ? `
+                    <button class="hints-badge-btn" data-type="vibe-code" data-idx="${idx}">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                      D${idx + 1}提示詞
+                    </button>
+                  ` : `<span style="color: var(--text-muted); font-size: 0.9rem;">-</span>`}
                 </td>
               </tr>
             `).join('')}
           </tbody>
         </table>
+      </div>
+      <div style="margin-top: 1rem; padding: 0.75rem 1rem; background-color: var(--primary-light); border-left: 3px solid var(--primary); border-radius: var(--radius-sm); font-size: 0.825rem; color: var(--text-medium); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.5;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 15px; height: 15px; margin-top: 0.1rem; flex-shrink: 0; color: var(--primary);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <span><strong>補充說明：</strong>當 OCR 與 LLM API 串接時，可實現更複雜的結構化資料提取、語意分類及雜訊欄位自動過濾等功能，進而產生相應的 API 費用。</span>
       </div>
     `;
     container.appendChild(vibeSec);
@@ -1166,12 +1213,12 @@ function renderHintsContent() {
         content = item.code;
       } else if (type === 'vibe-prompt') {
         const item = hints.vibe[idx];
-        title = `${item.title} - 參考提示詞`;
+        title = `${item.title} - AI提示詞`;
         subtitle = `Excel 單元格參照：C${idx + 1}`;
         content = item.prompt;
       } else if (type === 'vibe-code') {
         const item = hints.vibe[idx];
-        title = `${item.title} - 實作程式碼`;
+        title = `${item.title} - Agy提示詞`;
         subtitle = `Excel 單元格參照：D${idx + 1}`;
         content = item.code;
       } else if (type === 'evo-ours') {
