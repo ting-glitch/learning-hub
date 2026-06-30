@@ -1228,24 +1228,9 @@ function renderHintsContent() {
             </tr>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">適用情境</td>
-              <td>
-                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>開發偵錯與單機臨時測試</li>
-                  <li>需要即時觀測程式 Log 的環境</li>
-                </ul>
-              </td>
-              <td>
-                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>例行性定時自動化背景排程</li>
-                  <li>提供終端用戶無感運行的自動化工具</li>
-                </ul>
-              </td>
-              <td>
-                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>長期代碼維護、變更追蹤與備份</li>
-                  <li>多人協作與多環境 (開發/測試/生產) 部署</li>
-                </ul>
-              </td>
+              <td>適合日常高頻率使用的工具，一秒進入工作狀態</td>
+              <td>適合自動化排程、背景處理，維持桌面乾淨舒適</td>
+              <td>適合長期維護、多裝置同步，或個人作品集展示</td>
             </tr>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">資訊安全</td>
