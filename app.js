@@ -1201,31 +1201,28 @@ function renderHintsContent() {
           <tbody>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">儲存環境</td>
-              <td>本地磁碟 (通常與專案程式碼放在同一目錄下)</td>
-              <td>本地磁碟 (通常作為輔助啟動器或背景排程腳本)</td>
-              <td>雲端 Git 託管倉庫 (如 GitHub 遠端儲存庫)</td>
+              <td>本地端 (與專案目錄同級)</td>
+              <td>本地端 (做為批次檔之背景啟動器)</td>
+              <td>雲端 Git 遠端倉庫</td>
             </tr>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">優勢</td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>一鍵雙擊快速啟動</li>
-                  <li>編寫與修改極為簡單直覺</li>
-                  <li>執行時能直觀檢視控制台輸出日誌</li>
+                  <li>雙擊即啟動，編寫與客製成本低</li>
+                  <li>可直觀檢視命令列 (CLI) 輸出日誌</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>背景靜默執行，無黑色 CMD 視窗彈出</li>
-                  <li>完全不打擾或干擾使用者當前畫面操作</li>
-                  <li>與 Windows 工作排程器 (Task Scheduler) 結合體驗最佳</li>
+                  <li>背景靜默運行，無 CMD 視窗干擾</li>
+                  <li>支援 Windows 工作排程器靜態觸發</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>安全雲端備份，防範本機硬碟故障</li>
-                  <li>擁有完整歷史紀錄與版本追蹤、分支管理</li>
-                  <li>支援多人團隊協作、跨裝置同步與發布</li>
+                  <li>雲端備份防損毀，具備完整歷史追蹤 (Git History)</li>
+                  <li>支援跨裝置同步與多分支協作</li>
                 </ul>
               </td>
             </tr>
@@ -1233,21 +1230,20 @@ function renderHintsContent() {
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">適用情境</td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>開發調試階段，需要隨時觀測執行 Log</li>
-                  <li>單機快速手動測試與臨時啟動</li>
+                  <li>開發偵錯與單機臨時測試</li>
+                  <li>需要即時觀測程式 Log 的環境</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>例行性自動化工作，需每日背景定時排程執行</li>
-                  <li>給非技術人員執行，希望介面乾淨無干擾</li>
+                  <li>例行性定時自動化背景排程</li>
+                  <li>提供終端用戶無感運行的自動化工具</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>程式碼長久備份與協作開發</li>
-                  <li>需跨不同環境部署 (如測試機、正式機)</li>
-                  <li>建立自動化持續整合與部署 (CI/CD)</li>
+                  <li>長期代碼維護、變更追蹤與備份</li>
+                  <li>多人協作與多環境 (開發/測試/生產) 部署</li>
                 </ul>
               </td>
             </tr>
@@ -1255,23 +1251,21 @@ function renderHintsContent() {
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">資訊安全</td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>腳本為明文，易於審查安全性</li>
-                  <li>須防範腳本被惡意篡改指令</li>
-                  <li>部分防毒軟體可能將未知批次檔誤判為風險</li>
+                  <li>明文腳本易於代碼安全審查</li>
+                  <li>須防範防毒軟體誤報與指令惡意篡改</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>腳本為明文，但因無視窗背景執行，較不易察覺</li>
-                  <li>若執行異常只能從日誌追蹤，隱蔽性較高</li>
-                  <li>需嚴格限制寫入權限，防止被植入惡意指令</li>
+                  <li>背景執行隱蔽性高，異常時須仰賴日誌追蹤</li>
+                  <li>須嚴格管控寫入權限，防止指令惡意注入</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>支援私有倉庫 (Private Repo) 存取保護</li>
-                  <li><strong style="color: var(--danger);">⚠️ 絕不可將 API 金鑰或密碼等敏感資料直接寫入並提交</strong></li>
-                  <li>應搭配 <code>.env</code> 檔與環境變數機制防範外洩</li>
+                  <li>支援 Private Repo 權限控管</li>
+                  <li><strong style="color: var(--danger);">⚠️ 嚴禁將 API 金鑰與敏感資訊直接寫入並提交</strong></li>
+                  <li>須搭配環境變數 (<code>.env</code>) 管理防範外洩</li>
                 </ul>
               </td>
             </tr>
