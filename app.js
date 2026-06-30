@@ -1228,16 +1228,31 @@ function renderHintsContent() {
             </tr>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">適用情境</td>
-              <td>適合日常高頻率使用的工具，一秒進入工作狀態</td>
-              <td>適合自動化排程、背景處理，維持桌面乾淨舒適</td>
-              <td>適合長期維護、多裝置同步，或個人作品集展示</td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>日常高頻率使用工具</li>
+                  <li>一秒快速進入工作狀態</li>
+                </ul>
+              </td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>自動化排程與背景處理</li>
+                  <li>維持桌面乾淨舒適</li>
+                </ul>
+              </td>
+              <td>
+                <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                  <li>專案長期維護與多裝置同步</li>
+                  <li>個人專業作品集展示</li>
+                </ul>
+              </td>
             </tr>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">資訊安全</td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
                   <li>明文腳本易於代碼安全審查</li>
-                  <li>執行前應確認指令來源，防範未知異常檔</li>
+                  <li>執行前應確認指令來源</li>
                 </ul>
               </td>
               <td>
