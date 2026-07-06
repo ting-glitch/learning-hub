@@ -705,8 +705,8 @@ function renderPrepContent(course) {
   }
   
   elements.slideViewerTitle.innerHTML = `<svg class="icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>課前準備簡報線上瀏覽`;
-  elements.downloadsCardTitle.innerHTML = `<svg class="icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>課前準備教材下載`;
-  elements.downloadsCardDesc.textContent = '請在課程開始前下載並閱讀以下課前準備教材：';
+  elements.downloadsCardTitle.innerHTML = `<svg class="icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>課前準備與下載`;
+  elements.downloadsCardDesc.textContent = '請在課前完成課程準備：';
   
   const pathPrefix = `courses/${course.id}`;
   currentSlideIndex = 1;
