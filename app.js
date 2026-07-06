@@ -80,6 +80,7 @@ const elements = {
   downloadsCardTitle: document.getElementById('downloads-card-title'),
   materialListContainer: document.getElementById('material-list-container'),
   downloadsCardDesc: document.getElementById('downloads-card-desc'),
+  courseMaterialsCard: document.getElementById('course-materials-card'),
   
   // Auth Modal
   authModal: document.getElementById('auth-modal'),
@@ -596,6 +597,15 @@ function renderCourseTabsLayout(isContentUnlocked) {
   const course = COURSE_CATALOG.find(c => c.id === currentCourseId);
   if (!course) return;
   
+  if (course.id === 'course-0vvk06') {
+    elements.tabContent.style.display = 'none';
+    if (currentTab === 'content') {
+      currentTab = 'prep';
+    }
+  } else {
+    elements.tabContent.style.display = '';
+  }
+  
   // Set headers
   const formattedDate = course.date.replace(/-/g, '/');
   elements.detailTitle.textContent = course.title;
@@ -608,6 +618,9 @@ function renderCourseTabsLayout(isContentUnlocked) {
 }
 
 function switchTab(tabName, isContentUnlocked) {
+  if (currentCourseId === 'course-0vvk06' && tabName === 'content') {
+    tabName = 'prep';
+  }
   currentTab = tabName;
   if (currentCourseId) {
     sessionStorage.setItem(`active_tab_${currentCourseId}`, tabName);
@@ -733,11 +746,20 @@ function renderPrepContent(course) {
   
   // Hide assignment section since it's only for content
   elements.assignmentSection.classList.add('hidden');
+  
+  // Toggle Course Materials Card
+  if (course.id === 'course-0vvk06') {
+    elements.courseMaterialsCard.classList.remove('hidden');
+  } else {
+    elements.courseMaterialsCard.classList.add('hidden');
+  }
 }
 
 // Render unlocked "Course Content" view
 function renderMainContent() {
   if (!activeCourseData) return;
+  
+  elements.courseMaterialsCard.classList.add('hidden');
   
   elements.slideViewerTitle.innerHTML = `<svg class="icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>正式課程簡報線上瀏覽`;
   elements.downloadsCardTitle.innerHTML = `<svg class="icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>正式課程教材下載`;
