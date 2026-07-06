@@ -2686,4 +2686,35 @@ input[type="date"].form-control:disabled::-webkit-calendar-picker-indicator {
   }
 }
 
+/* Highlight styling for important course materials card */
+#course-materials-card {
+  border: 1.5px solid var(--primary-border) !important;
+  box-shadow: 0 8px 30px rgba(29, 78, 216, 0.06), var(--shadow-md) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+#course-materials-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-hover));
+}
+
+#course-materials-card .material-item {
+  border: 1.5px solid var(--primary-border);
+  background-color: var(--primary-light);
+  box-shadow: 0 2px 8px rgba(29, 78, 216, 0.02);
+}
+
+#course-materials-card .material-item:hover {
+  border-color: var(--primary);
+  background-color: #eff6ff;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.08);
+}
+
+
 
