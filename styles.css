@@ -520,6 +520,27 @@ body {
   .course-layout {
     grid-template-columns: 2.2fr 1fr;
   }
+  .course-left {
+    display: flex;
+    flex-direction: column;
+  }
+  .viewer-card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+  }
+  #viewer-active-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+  }
+  .slide-container {
+    flex-grow: 1;
+    min-height: 380px;
+    aspect-ratio: auto;
+  }
 }
 
 .course-left, .course-right {
