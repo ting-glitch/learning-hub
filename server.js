@@ -50,6 +50,14 @@ function saveCourse(data, res) {
     return;
   }
   
+  // 驗證 courseId 格式，防範目錄穿越攻擊 (Path Traversal)
+  const courseIdRegex = /^[a-zA-Z0-9_-]+$/;
+  if (!courseIdRegex.test(courseId)) {
+    res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({ success: false, error: '無效的課程識別碼 (Course ID)！' }));
+    return;
+  }
+  
   // Find old hashed directory if editing
   let oldContentDirName = null;
   let oldDataJson = null;
@@ -139,8 +147,10 @@ function saveCourse(data, res) {
     }
 
     const { name, size, category, base64, isNew } = file;
+    // 確保安全檔案名稱，防範目錄穿越 (Path Traversal)
+    const safeName = path.basename(name);
     const fileDestDir = category === 'prep' ? prepDirPath : contentDirPath;
-    const fileDestPath = path.join(fileDestDir, name);
+    const fileDestPath = path.join(fileDestDir, safeName);
     
     if (isNew && base64) {
       try {
@@ -149,17 +159,17 @@ function saveCourse(data, res) {
         fs.writeFileSync(fileDestPath, buffer);
         console.log(`已儲存檔案: ${fileDestPath}`);
       } catch (err) {
-        console.error(`寫入檔案 ${name} 失敗:`, err);
+        console.error(`寫入檔案 ${safeName} 失敗:`, err);
         res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ success: false, error: `寫入檔案 ${name} 失敗` }));
+        res.end(JSON.stringify({ success: false, error: `寫入檔案 ${safeName} 失敗` }));
         return;
       }
     }
     
     const fileObj = {
       type: 'file',
-      name,
-      file: category === 'prep' ? `prep/downloads/${name}` : `downloads/${name}`,
+      name: safeName,
+      file: category === 'prep' ? `prep/downloads/${safeName}` : `downloads/${safeName}`,
       size
     };
 
@@ -298,6 +308,13 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 function deleteCourse(courseId, res) {
+  // 驗證 courseId 格式，防範目錄穿越攻擊 (Path Traversal)
+  const courseIdRegex = /^[a-zA-Z0-9_-]+$/;
+  if (!courseId || !courseIdRegex.test(courseId)) {
+    res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({ success: false, error: '無效的課程識別碼 (Course ID)！' }));
+    return;
+  }
   const configJsPath = path.join(__dirname, 'config.js');
   let catalog = [];
   
@@ -441,9 +458,16 @@ const server = http.createServer((req, res) => {
     decodedPath = '/index.html';
   }
 
-  // 3. 確保路徑安全，防止目錄穿越
+  // 3. 確保路徑安全，防止目錄穿越 (Path Traversal)
   const safePath = path.normalize(decodedPath).replace(/^(\.\.(\/|\\|$))+/, '');
   const filePath = path.join(__dirname, safePath);
+  
+  if (!filePath.startsWith(__dirname)) {
+    console.log(`\x1b[31m[403] Forbidden (Path Traversal): ${decodedPath}\x1b[0m`);
+    res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('存取被拒 (403 Forbidden)');
+    return;
+  }
 
   // 4. 讀取檔案並回傳
   fs.stat(filePath, (err, stats) => {
@@ -492,7 +516,7 @@ server.on('error', (err) => {
 });
 
 // 啟動伺服器
-server.listen(PORT, () => {
+server.listen(PORT, '127.0.0.1', () => {
   console.log('==========================================');
   console.log('  Learning Hub - 課程學習中心 本地伺服器  ');
   console.log('==========================================');

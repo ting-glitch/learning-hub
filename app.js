@@ -1478,13 +1478,15 @@ function renderFileRow(fileData, rootPath) {
   metaSpan.className = 'material-meta';
   
   if (isLink) {
-    let metaHTML = `<span class="material-meta-link" title="${fileData.url}">連結: ${fileData.url}</span>`;
+    const escapedUrl = escapeHtml(fileData.url);
+    const escapedDesc = escapeHtml(fileData.description);
+    let metaHTML = `<span class="material-meta-link" title="${escapedUrl}">連結: ${escapedUrl}</span>`;
     if (fileData.description) {
-      metaHTML += `<span class="meta-separator">•</span><span style="color: var(--text-medium); font-weight: 500;">說明: ${fileData.description}</span>`;
+      metaHTML += `<span class="meta-separator">•</span><span style="color: var(--text-medium); font-weight: 500;">說明: ${escapedDesc}</span>`;
     }
     metaSpan.innerHTML = metaHTML;
   } else {
-    metaSpan.innerHTML = `<span>大小: ${fileData.size}</span>`;
+    metaSpan.innerHTML = `<span>大小: ${escapeHtml(fileData.size)}</span>`;
   }
   
   details.appendChild(nameSpan);
