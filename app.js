@@ -1216,29 +1216,30 @@ function renderHintsContent() {
             <tr>
               <th style="width: 15%; background-color: var(--bg-subtle);"></th>
               <th style="width: 28%; font-weight: 700;">Run.bat (一鍵執行)</th>
-              <th style="width: 28%; font-weight: 700;">Silent.vbs (背景執行)</th>
+              <th style="width: 28%; font-weight: 700;">企業內網虛擬機 (環境安全隔離)</th>
               <th style="width: 29%; font-weight: 700;">GitHub (雲端代管)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">儲存環境</td>
-              <td>本地端儲存</td>
-              <td>本地端儲存</td>
-              <td>雲端儲存</td>
+              <td>本地端儲存 (與專案同級)</td>
+              <td>內網獨立虛擬主機 (如 Hyper-V, PVE)</td>
+              <td>雲端儲存 (GitHub 伺服器)</td>
             </tr>
             <tr>
               <td style="font-weight: 600; background-color: var(--bg-subtle); color: var(--text-dark);">優勢</td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>雙擊即啟動，編寫與客製成本低</li>
+                  <li>雙擊即啟動，客製與維護成本低</li>
                   <li>可直觀檢視命令列 (CLI) 輸出日誌</li>
                 </ul>
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>背景靜默運行，無 CMD 視窗干擾</li>
-                  <li>支援 Windows 工作排程器靜態觸發</li>
+                  <li><strong>安全隔離執行</strong>：程式異常或當機不影響個人實體電腦</li>
+                  <li><strong>支援還原點建立</strong>：程式寫壞或異常可一秒回溯還原</li>
+                  <li><strong>硬體資源限制</strong>：防止異常腳本耗盡個人電腦效能</li>
                 </ul>
               </td>
               <td>
@@ -1258,8 +1259,8 @@ function renderHintsContent() {
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>自動化排程與背景處理</li>
-                  <li>維持桌面乾淨舒適</li>
+                  <li>開發中且需反覆調試的自動化程式 (如資料收集、監控)</li>
+                  <li>需 24 小時不間斷運作的自動化背景排程任務</li>
                 </ul>
               </td>
               <td>
@@ -1279,8 +1280,8 @@ function renderHintsContent() {
               </td>
               <td>
                 <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                  <li>背景執行隱蔽性高，異常仰賴日誌追蹤</li>
-                  <li>建議資安檢查與管控，防止惡意指令</li>
+                  <li>需配置網路安全規則，防止虛擬機受駭影響其他內網設備</li>
+                  <li>共享資料夾建議設為<strong>唯讀</strong>，防範實體檔案遭意外覆寫</li>
                 </ul>
               </td>
               <td>
